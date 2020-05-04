@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BaseUrl.Name" xml:space="preserve">
+    <value>BaseUrl</value>
+  </data>
+  <data name="BaseUrl.Description" xml:space="preserve">
+    <value>Deve ser definida uma URL base válida.</value>
+  </data>
+  <data name="BaseUrl.Details" xml:space="preserve">
+    <value>O conjunto de atributos 'host', 'basePath' e 'schemes' devem ser definidos de forma a juntos formarem uma URL válida. Ex: schemes = 'https', host = 'api.suaempresa.com.br' e basePath = '/clientes/cadastros' formando 'https://api.suaempresa.com.br/clientes/cadastros'.</value>
+  </data>
+  <data name="ContentEnvelope.Name" xml:space="preserve">
+    <value>ContentEnvelope</value>
+  </data>
+  <data name="ContentEnvelope.Description" xml:space="preserve">
+    <value>As propriedades da resposta devem estar contidas em uma propriedade (envelope) '{0}'.</value>
+  </data>
+  <data name="ContentEnvelope.Details" xml:space="preserve">
+    <value>Retornar as propriedades da resposta em um "envelope" permite separar suas propriedades de outras que não representam o objeto principal, como paginação, mensagens, etc. Sendo que estas outras propriedades com características de metadados também devem ter seu próprio "envelope".</value>
+  </data>
+  <data name="ContentIn204.Name" xml:space="preserve">
+    <value>ContentIn204</value>
+  </data>
+  <data name="ContentIn204.Description" xml:space="preserve">
+    <value>Respostas HTTP 204 não devem retornar nenhum conteúdo.</value>
+  </data>
+  <data name="ContentIn204.Details" xml:space="preserve">
+    <value>O Content-Lenght de uma requisição HTTP com retorno 204 deve ser 0.</value>
+  </data>
+  <data name="DateWithoutFormat.Name" xml:space="preserve">
+    <value>DateWithoutFormat</value>
+  </data>
+  <data name="DateWithoutFormat.Description" xml:space="preserve">
+    <value>Atributos ou parâmetros que representem datas devem ter o campo format definidos como date ou date-time.</value>
+  </data>
+  <data name="DateWithoutFormat.Details" xml:space="preserve">
+    <value>Verifique se o atributo ou parâmetro é realmente uma data e se for, defina o format.</value>
+  </data>
+  <data name="Description.Name" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Description.Description" xml:space="preserve">
+    <value>As diferentes partes do contrato devem ter suas descrições preenchidas de forma a explicar o negócio sendo exposto para o cliente.</value>
+  </data>
+  <data name="Description.Details" xml:space="preserve">
+    <value>Quanto melhor os itens forem descritos, mais fácil será para o entendimento do consumidor da API. Evite descrições vazias ou muito curtas.</value>
+  </data>
+  <data name="DescriptionQuality.Name" xml:space="preserve">
+    <value>DescriptionQuality</value>
+  </data>
+  <data name="DescriptionQuality.Description" xml:space="preserve">
+    <value>Descrição deve respeitar respeitar regras de pontuação, acentuação e uso de maiúsculas e minúsculas.</value>
+  </data>
+  <data name="DescriptionQuality.Details" xml:space="preserve">
+    <value>Inicie as descrições dos campos 'description' ou 'summary' com letra maiúscula e finalize com um ponto final.</value>
+  </data>
+  <data name="DoubleSlashes.Name" xml:space="preserve">
+    <value>DoubleSlashes</value>
+  </data>
+  <data name="DoubleSlashes.Description" xml:space="preserve">
+    <value>Cada segmento da URL deve ter apenas uma barra '/'.</value>
+  </data>
+  <data name="DoubleSlashes.Details" xml:space="preserve">
+    <value>Não termine um path com '/', nem coloque duas barras seguidas '//'.</value>
+  </data>
+  <data name="Empty200.Name" xml:space="preserve">
+    <value>Empty200</value>
+  </data>
+  <data name="Empty200.Description" xml:space="preserve">
+    <value>Respostas HTTP 200 ou 206 devem retornar alguma propriedade no body.</value>
+  </data>
+  <data name="Empty200.Details" xml:space="preserve">
+    <value>Mesmo que o resultado da resposta seja consequência de filtros que não retornem resultado, retorne a propriedade de envelope com valor nulo ou array vazio.</value>
+  </data>
+  <data name="EmptyExamples.Name" xml:space="preserve">
+    <value>EmptyExamples</value>
+  </data>
+  <data name="EmptyExamples.Description" xml:space="preserve">
+    <value>Adicione exemplo às suas respostas.</value>
+  </data>
+  <data name="EmptyExamples.Details" xml:space="preserve">
+    <value>Exemplos ajudam o usuário a entender como funciona a API.</value>
+  </data>
+  <data name="ErrorResponseFormat.Name" xml:space="preserve">
+    <value>ErrorResponseFormat</value>
+  </data>
+  <data name="ErrorResponseFormat.Description" xml:space="preserve">
+    <value>Quando a resposta é de erro (4xx ou 5xx) as propriedades da resposta devem seguir o padrão.</value>
+  </data>
+  <data name="ErrorResponseFormat.Details" xml:space="preserve">
+    <value>As propriedades da resposta devem devem estar dentre estas: {0}. </value>
+  </data>
+  <data name="Http200WithoutPagination.Name" xml:space="preserve">
+    <value>Http200WithoutPagination</value>
+  </data>
+  <data name="Http200WithoutPagination.Description" xml:space="preserve">
+    <value>Respostas do tipo HTTP 200 que representem coleções podem ser paginadas.</value>
+  </data>
+  <data name="Http200WithoutPagination.Details" xml:space="preserve">
+    <value>Oferecer paginação para o cliente, dá flexibilidade para ele trabalhar com um payload do tamanho que for melhor para ele.</value>
+  </data>
+  <data name="Http201WithoutContentLocationHeader.Name" xml:space="preserve">
+    <value>Http201WithoutContentLocationHeader</value>
+  </data>
+  <data name="Http201WithoutContentLocationHeader.Description" xml:space="preserve">
+    <value>Resposta do tipo HTTP 201 deve ter um Header Content-Location</value>
+  </data>
+  <data name="Http201WithoutContentLocationHeader.Details" xml:space="preserve">
+    <value>Este tipo de resposta representa criação de dados e precisa indicar a URL que representa o recurso recém criado.</value>
+  </data>
+  <data name="Http3xxWithoutLocationHeader.Name" xml:space="preserve">
+    <value>Http3xxWithoutLocationHeader</value>
+  </data>
+  <data name="Http3xxWithoutLocationHeader.Description" xml:space="preserve">
+    <value>Respostas do tipo HTTP 300, 301, 302, 303 e 307 devem ter um Header Location.</value>
+  </data>
+  <data name="Http3xxWithoutLocationHeader.Details" xml:space="preserve">
+    <value>Estes tipos de respostas representam redirecionamentos e precisam indicar o local do redirecionamento no header Location.</value>
+  </data>
+  <data name="IdPropertyResponse.Name" xml:space="preserve">
+    <value>IdPropertyResponse</value>
+  </data>
+  <data name="IdPropertyResponse.Description" xml:space="preserve">
+    <value>O recurso deve deve ter um identificador e ele deve se chamar apenas '{0}'.</value>
+  </data>
+  <data name="IdPropertyResponse.Details" xml:space="preserve">
+    <value>Normalmente, a API REST expões recursos e recursos têm um ID que o identifica e diferencia entre eles. O tipo do recurso é identificado pelo nome da sua URL e um id deve ser representado por '{0}'.</value>
+  </data>
+  <data name="InfoContact.Name" xml:space="preserve">
+    <value>InfoContact</value>
+  </data>
+  <data name="InfoContact.Description" xml:space="preserve">
+    <value>Preencha as informações de contato.</value>
+  </data>
+  <data name="InfoContact.Details" xml:space="preserve">
+    <value />
+  </data>
+  <data name="MessagesEnvelopeFormat.Name" xml:space="preserve">
+    <value>MessagesEnvelopeFormat</value>
+  </data>
+  <data name="MessagesEnvelopeFormat.Description" xml:space="preserve">
+    <value>As propriedades dentro do envelope {0} devem serguir o padrão.</value>
+  </data>
+  <data name="MessagesEnvelopeFormat.Details" xml:space="preserve">
+    <value>As propriedades dentro do envelope {0} devem estar dentre estas: {1}.</value>
+  </data>
+  <data name="NestingDepth.Name" xml:space="preserve">
+    <value>NestingDepth</value>
+  </data>
+  <data name="NestingDepth.Description" xml:space="preserve">
+    <value>Tipos de retorno com muitos objetos aninhados podem estar apontando um problema de referência cíclica.</value>
+  </data>
+  <data name="NestingDepth.Details" xml:space="preserve">
+    <value>A validação das regras verificará objetos de no máximo {0} de profundidade de aninhamento. Evite objetos com muitos aninhamentos e verifique se não há referência cíclica nesta propriedade.</value>
+  </data>
+  <data name="OperationSuccessResponse.Name" xml:space="preserve">
+    <value>OperationSuccessResponse</value>
+  </data>
+  <data name="OperationSuccessResponse.Description" xml:space="preserve">
+    <value>Uma operação deve ter pelo menos uma resposta de sucesso (2xx).</value>
+  </data>
+  <data name="OperationSuccessResponse.Details" xml:space="preserve">
+    <value>Verifique se você não esqueceu de colocar uma resposta de sucesso.</value>
+  </data>
+  <data name="PaginationEnvelopeFormat.Name" xml:space="preserve">
+    <value>PaginationEnvelopeFormat</value>
+  </data>
+  <data name="PaginationEnvelopeFormat.Description" xml:space="preserve">
+    <value>As propriedades dentro do envelope {0} devem serguir o padrão.</value>
+  </data>
+  <data name="PaginationEnvelopeFormat.Details" xml:space="preserve">
+    <value>As propriedades dentro do envelope {0} devem estar dentre estas: {1}.</value>
+  </data>
+  <data name="PathAndIDStructure.Name" xml:space="preserve">
+    <value>PathAndIDStructure</value>
+  </data>
+  <data name="PathAndIDStructure.Description" xml:space="preserve">
+    <value>Nos Paths, utilizar estrutura '/colecao/{idColecao}/subcolecao/{idSubColecao}'.</value>
+  </data>
+  <data name="PathAndIDStructure.Details" xml:space="preserve">
+    <value>As melhores práticas orientam que organizemos os paths como coleções de entidades. Estas coleções ser relacionam entre si através da organização delas no path. Não devemos criar segmentos de path que não sejam entidades ou serviços da API, ou seja, segmentos apenas para agrupamento. A função de agrupamento se dá apenas no "basePath".</value>
+  </data>
+  <data name="PathCase.Name" xml:space="preserve">
+    <value>PathCase</value>
+  </data>
+  <data name="PathCase.Description" xml:space="preserve">
+    <value>Nos Paths, utilizar notação {0}. Ex: {1}.</value>
+  </data>
+  <data name="PathCase.Details" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PathParameter.Name" xml:space="preserve">
+    <value>PathParameter</value>
+  </data>
+  <data name="PathParameter.Description" xml:space="preserve">
+    <value>O Path Parameter deve ser identificado como {0} em {1}. Ex: {2}.</value>
+  </data>
+  <data name="PathParameter.Details" xml:space="preserve">
+    <value>Cada Path Parameter deve ter um id único na URL e seguir uma nomenclatura que o relacione com o nome do path que ele representa.</value>
+  </data>
+  <data name="PathPlural.Name" xml:space="preserve">
+    <value>PathPlural</value>
+  </data>
+  <data name="PathPlural.Description" xml:space="preserve">
+    <value>O Path na maioria das vezes deve ser um substantivo no plural. Ex: clientes.</value>
+  </data>
+  <data name="PathPlural.Details" xml:space="preserve">
+    <value>Em alguns cenários menos frequentes, o nome do path pode não seguir a regra do substantivo e/ou representar um serviço (verbo), neste caso, utilize o arquivo de configuração para não processar esta regra.</value>
+  </data>
+  <data name="PathTrailingSlash.Name" xml:space="preserve">
+    <value>PathTrailingSlash</value>
+  </data>
+  <data name="PathTrailingSlash.Description" xml:space="preserve">
+    <value>Não colocar '/' no final dos paths.</value>
+  </data>
+  <data name="PathTrailingSlash.Details" xml:space="preserve">
+    <value>Alguns sistemas ignoram-nas, no entanto, outros podem ter problemas no roteamento das chamadas com URLs terminadas em '/'.</value>
+  </data>
+  <data name="PathWithCrudNames.Name" xml:space="preserve">
+    <value>PathWithCrudNames</value>
+  </data>
+  <data name="PathWithCrudNames.Description" xml:space="preserve">
+    <value>Paths não devem conter nomes representando ações de CRUD.</value>
+  </data>
+  <data name="PathWithCrudNames.Details" xml:space="preserve">
+    <value>As ações são representadas pelos verbos HTTP e os paths devem representar apenas os nomes das entidades e/ou serviços.</value>
+  </data>
+  <data name="PropertyCase.Name" xml:space="preserve">
+    <value>PropertyCase</value>
+  </data>
+  <data name="PropertyCase.Description" xml:space="preserve">
+    <value>Nas propriedades, utilizar notação {0}. Ex: {1}.</value>
+  </data>
+  <data name="PropertyCase.Details" xml:space="preserve">
+    <value />
+  </data>
+  <data name="PropertyNamingMatchingPath.Name" xml:space="preserve">
+    <value>PropertyNamingMatchingPath</value>
+  </data>
+  <data name="PropertyNamingMatchingPath.Description" xml:space="preserve">
+    <value>As propriedades dentro de uma URL não precisam repetir o nome da URL.</value>
+  </data>
+  <data name="PropertyNamingMatchingPath.Details" xml:space="preserve">
+    <value>Por exemplo, em uma URL /clientes, as propriedades podem ser apenas nome, endereco, idade. Evite nomeá-las repetindo o nome do path (nomeCliente, enderecoCliente, idadeCliente, etc).</value>
+  </data>
+  <data name="PropertyStartingWithType.Name" xml:space="preserve">
+    <value>PropertyStartingWithType</value>
+  </data>
+  <data name="PropertyStartingWithType.Description" xml:space="preserve">
+    <value>As propriedades não devem ter seus nomes iniciando com tipo delas.</value>
+  </data>
+  <data name="PropertyStartingWithType.Details" xml:space="preserve">
+    <value>Não use notação húngara. Por exemplo, idade deve se chamar "idade", não intIdade. O tipo da propriedade pode ser melhor documentado na descrição e através dos exemplos.</value>
+  </data>
+  <data name="ResponseWithout4xxAnd500.Name" xml:space="preserve">
+    <value>ResponseWithout4xxAnd500</value>
+  </data>
+  <data name="ResponseWithout4xxAnd500.Description" xml:space="preserve">
+    <value>A API deve conter ao menos uma resposta de erro 4xx e uma resposta 500.</value>
+  </data>
+  <data name="ResponseWithout4xxAnd500.Details" xml:space="preserve">
+    <value>Verifique se há pelo menos uma resposta de erro 4xx tratando o request e uma resposta 500 para problemas no servidor.</value>
+  </data>
+  <data name="StringCouldBeNumber.Name" xml:space="preserve">
+    <value>StringCouldBeNumber</value>
+  </data>
+  <data name="StringCouldBeNumber.Description" xml:space="preserve">
+    <value>Atributos ou parâmetros que representem números ou valores financeiros devem ser tipados como number.</value>
+  </data>
+  <data name="StringCouldBeNumber.Details" xml:space="preserve">
+    <value>Verifique se o atributo ou parâmetro pode ser representado como number.</value>
+  </data>
+  <data name="ValidResponseCodes.Name" xml:space="preserve">
+    <value>ValidResponseCodes</value>
+  </data>
+  <data name="ValidResponseCodes.Description" xml:space="preserve">
+    <value>A API deve utilizar códigos de resposta HTTP válidos.</value>
+  </data>
+  <data name="ValidResponseCodes.Details" xml:space="preserve">
+    <value>Utilize apenas um destes códigos HTTP: {0}.</value>
+  </data>
+  <data name="VersionFormat.Name" xml:space="preserve">
+    <value>VersionFormat</value>
+  </data>
+  <data name="VersionFormat.Description" xml:space="preserve">
+    <value>A versão da API deve respeitar o formato {0}. Ex: {1}.</value>
+  </data>
+  <data name="VersionFormat.Details" xml:space="preserve">
+    <value>Regex do formato: {0}.</value>
+  </data>
+</root>
