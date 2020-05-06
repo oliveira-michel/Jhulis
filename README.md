@@ -2,7 +2,7 @@
 ![tag](https://img.shields.io/github/v/release/oliveira-michel/Jhulis?include_prereleases&style=flat-square)
 ![last-commit](https://img.shields.io/github/last-commit/oliveira-michel/jhulis?&style=flat-square)
 
-<p align="center"><img src="docs/images/jhulis-logo-150.png"/></p>
+<p align="center"><img src="docs/images/jhulis-logo-150.png"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="docs/images/OpenAPI-Logo-50.png"/></p>
 
 # Jhulis (beta)
 
