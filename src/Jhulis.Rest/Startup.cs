@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Jhulis.Core;
+using Microsoft.AspNetCore.Http;
 
 namespace Jhulis
 {
@@ -36,6 +37,8 @@ namespace Jhulis
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UsePathBase(new PathString(Configuration.GetSection("BasePath").Value.ToLower()));
 
             app.UseRouting();
 

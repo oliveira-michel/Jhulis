@@ -58,7 +58,7 @@ Exemplos das chamadas encontram-se em https://github.com/oliveira-michel/Jhulis/
 Essa API é a forma mais simples de o desenvolvedor validar o contrato. Faça uma chamada na API de validação passando um contrato de API escrito em OpenAPI Specification v1, v2 ou v3 em YAML ou JSON. O Jhulis retornará o resultado da validação e cada regra que não passou.
 
 ```
-curl --location --request POST 'http://localhost:5000/validate' \
+curl --location --request POST 'http://localhost:5000/jhulis/v0/validate' \
 --header 'Accept: text/plain' \
 --header 'Content-Type: text/plain' \
 --header 'Content-Type: text/plain' \
@@ -79,7 +79,11 @@ A resposta da validação pode ser em JSON ou Text. Utilize os headers `Accept: 
 Esta API é útil para ser utilizada em esteiras de CI para fazer a validação do contrato. Faça uma chamada na API de validação passando o contrato de API escrito em OpenAPI Specification v1, v2 ou v3 em YAML ou JSON **escapado** no objeto `content` e opcionalmente uma lista de supressions no objeto `supressions` para ignorar a execução de alguma regra específica. O Jhulis retornará o resultado da validação e cada regra que não passou.
 
 ```
-{
+curl --location --request POST 'http://localhost:5000/jhulis/v0/full-validate' \
+--header 'Accept: application/json' \
+--header 'Content-Type: application/json' \
+--header 'Content-Type: text/plain' \
+--data-raw '{
 	"content": "swagger: \"2.0\"\ninfo:\n  description: \"This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.\"\n  version: \"1.0.0\"\n  title: \"Swagger Petstore\"\n  termsOfService: \"http://swagger.io/terms/\"\n
     [... Continuação do Swagger escapado...]'",
 	"supressions":[
@@ -94,7 +98,7 @@ Esta API é útil para ser utilizada em esteiras de CI para fazer a validação 
 			"justification": "only another example"
 		}
 	]
-}
+}'
 ```
 Sua esteira de CI pode verificar o `result` para determinar se o contrato passou com sucesso ou não pela validação.
 
@@ -105,7 +109,7 @@ A resposta da validação pode ser em JSON ou Text. Utilize os headers `Accept: 
 Para passar o contrato **escapado** no objeto `content` em /full-validate, utilize esta API para transformar um contrato com quebrar de linhas em um contrato escapado (com \\n, tratamento de aspas etc.).
 
 ```
-curl --location --request POST 'http://localhost:5000/escape' \
+curl --location --request POST 'http://localhost:5000/jhulis/v0/escape' \
 --header 'Accept: text/plain' \
 --header 'Content-Type: text/plain' \
 --header 'Content-Type: text/plain' \
@@ -237,11 +241,11 @@ As diferentes partes do contrato devem ter suas descrições preenchidas de form
 <sup>*Quanto melhor os itens forem descritos, mais fácil será para o entendimento do consumidor da API. Evite descrições vazias ou muito curtas.*</sup>
 
 Parâmetros: 
-* `LargeDescriptionLength: 25` define a quantidade de caracteres que o Jhulis considera como mínima para validar o Info.Description do contrato;
-* `MidDescriptionLength: 15` define a quantidade de caracteres que o Jhulis considera como mínima para validar o descrições de paths, parâmetros e operações do contrato;
-* `MinDescriptionLength: 5` define a quantidade de caracteres que o Jhulis considera para validar as descrições das propriedades;
-* `TestDescriptionInOperation: False` define se o Jhulis irá validar descrições em Operations (get, post etc.);
-* `TestDescriptionInPaths: False` define se o Jhulis irá validar descrições em Paths (URLs);
+* `LargeDescriptionLength: 25` define a quantidade de caracteres que o Jhulis considera como mínima para validar o Info.Description do contrato.
+* `MidDescriptionLength: 15` define a quantidade de caracteres que o Jhulis considera como mínima para validar o descrições de paths, parâmetros e operações do contrato.
+* `MinDescriptionLength: 5` define a quantidade de caracteres que o Jhulis considera para validar as descrições das propriedades.
+* `TestDescriptionInOperation: False` define se o Jhulis irá validar descrições em Operations (get, post etc.).
+* `TestDescriptionInPaths: False` define se o Jhulis irá validar descrições em Paths (URLs).
 
 #### DescriptionQuality
 Descrição deve respeitar respeitar regras de pontuação, acentuação e uso de maiúsculas e minúsculas.
@@ -268,7 +272,7 @@ Quando a resposta é de erro (4xx ou 5xx) as propriedades da resposta devem segu
 <sup>*As propriedades da resposta devem devem estar dentre estas: {0}. *</sup>
 
 Parâmetros: 
-* `NonObligatoryErrorProperties: details,fields.name,fields.message,fields.value,fields.detail` define os campos permitidos em uma resposta de erro, mas não obrigatórios. Substitui o {0} na descrição;
+* `NonObligatoryErrorProperties: details,fields.name,fields.message,fields.value,fields.detail` define os campos permitidos em uma resposta de erro, mas não obrigatórios. Substitui o {0} na descrição.
 * `ObligatoryErrorProperties: code,message` define os campos obrigatório em uma resposta de erro. Substitui o {0} na descrição.
 
 #### Http200WithoutPagination
@@ -277,7 +281,7 @@ Respostas do tipo HTTP 200 que representem coleções podem ser paginadas.
 <sup>*Oferecer paginação para o cliente, dá flexibilidade para ele trabalhar com um payload do tamanho que for melhor para ele.*</sup>
 
 Parâmetros:
-* `ContentEnvelopeName: data` define qual é o envelope em que o Jhulis irá verificar se é um array;
+* `ContentEnvelopeName: data` define qual é o envelope em que o Jhulis irá verificar se é um array.
 * `PaginationEnvelopeName: pagination` define o nome de paginação em que o Jhulis irá verificar a existência.
 
 #### Http201WithoutContentLocationHeader
@@ -311,7 +315,7 @@ As propriedades dentro do envelope {0} devem serguir o padrão.
 
 Parâmetros:
 
-* `MessagesEnvelopeProperties: code,message` define os parâmetros que devem estar contidos no envelope de mensagens. Substitui o {1} na descrição;
+* `MessagesEnvelopeProperties: code,message` define os parâmetros que devem estar contidos no envelope de mensagens. Substitui o {1} na descrição.
 * `MessagesEnvelopePropertyName: messages` define o nome do envelope de mensagens. Substitui o {0} na descrição.
 
 #### NestingDepth
@@ -349,23 +353,25 @@ Nos Paths, utilizar estrutura '/colecao/{idColecao}/subcolecao/{idSubColecao}'.
 Nos Paths, utilizar notação {0}. Ex: {1}.
 
 Parâmetros:
-* `CaseType: KebabCase`
-* `CaseTypeTolerateNumber: True`
-* `Example: distritos-federais`
+* `CaseType: KebabCase` define o tipo de case a ser utilizado nos Paths. Substitui o {0} na descrição.
+* `CaseTypeTolerateNumber: True` define se serão aceitos números ao validar o tipo de case.
+* `Example: distritos-federais` define um exemplo que entra na descrição. Substitui o {1} na descrição.
 
 #### PathParameter
 O Path Parameter deve ser identificado como {0} em {1}. Ex: {2}.
 
 <sup>*Cada Path Parameter deve ter um id único na URL e seguir uma nomenclatura que o relacione com o nome do path que ele representa.*</sup>
-```
-CaseType: CamelCase
-Example: idCliente
-HumanReadeableFormat: 'id' + 'NomeSingularDoPath'
-MatchEntityNamePercentage: 0.6
-PrefixToRemove: id
-Regex: ^(id[a-zA-Z]+)$
-SufixToRemove: 
-```
+
+Parâmetros:
+
+* `CaseType: CamelCase` define o tipo de case a ser utilizado nos Path Parameters. Substitui o {1} na descrição.
+* `Example: idCliente` define um exemplo que entra na descrição. Substitui o {2} na descrição.
+* `HumanReadeableFormat: 'id' + 'NomeSingularDoPath'` define a explicação do formato que entra na descrição. Substitui o {0} na descrição.
+* `MatchEntityNamePercentage: 0.6` define quantos porcento de coincidência deve existir entre o nome do Path Parameter e o nome do seu recurso no Path.
+* `PrefixToRemove: id` define algum prefixo a ser removido antes de fazer o teste de coincidência entre o nome do Path Parameter e o nome do seu recurso no Path.
+* `Regex: ^(id[a-zA-Z]+)$` define a expressão regular que testa o padrão esperado para os Path Parameters.
+* `SufixToRemove: ` define algum sufixo a ser removido antes de fazer o teste de coincidência entre o nome do Path Parameter e o nome do seu recurso no Path.
+
 #### PathPlural
 O Path na maioria das vezes deve ser um substantivo no plural. Ex: clientes.
 
@@ -374,76 +380,149 @@ O Path na maioria das vezes deve ser um substantivo no plural. Ex: clientes.
 Não colocar '/' no final dos paths.
 
 <sup>*Alguns sistemas ignoram-nas, no entanto, outros podem ter problemas no roteamento das chamadas com URLs terminadas em '/'.*</sup>
+
 #### PathWithCrudNames
+
 Paths não devem conter nomes representando ações de CRUD.
 
 <sup>*As ações são representadas pelos verbos HTTP e os paths devem representar apenas os nomes das entidades e/ou serviços.*</sup>
-```
-WordsToAvoid: get,consultar,recuperar,listar,ler,obter,post,salvar,gravar,enviar,postar,path,atualizar,delete,apagar,deletar,remover,excluir
-```
+
+Parâmetros:
+
+* `WordsToAvoid: get,consultar,recuperar,listar,ler,obter,post,salvar,gravar,enviar,postar,path,atualizar,delete,apagar,deletar,remover,excluir` define palavras que são proibidas de usar nos Paths.
+
 #### PropertyCase
+
 Nas propriedades, utilizar notação {0}. Ex: {1}.
-```
-CaseType: CamelCase
-CaseTypeTolerateNumber: True
-Example: enderecoResidencial
-```
+
+Parâmetros:
+
+* `CaseType: CamelCase` define o tipo de case a ser utilizado nas propriedades. Substitui o {0} na descrição.
+* `CaseTypeTolerateNumber: True` define se serão aceitos números ao validar o tipo de case.
+* `Example: enderecoResidencial` define um exemplo que entra na descrição. Substitui o {1} na descrição.
+
+
 #### PropertyNamingMatchingPath
+
 As propriedades dentro de uma URL não precisam repetir o nome da URL.
 
 <sup>*Por exemplo, em uma URL /clientes, as propriedades podem ser apenas nome, endereco, idade. Evite nomeá-las repetindo o nome do path (nomeCliente, enderecoCliente, idadeCliente, etc).*</sup>
+
 #### PropertyStartingWithType
+
 As propriedades não devem ter seus nomes iniciando com tipo delas.
 
 <sup>*Não use notação húngara. Por exemplo, idade deve se chamar "idade", não intIdade. O tipo da propriedade pode ser melhor documentado na descrição e através dos exemplos.*</sup>
-```
-WordsToAvoid: bool,byte,char,dbl,decimal,double,flag,float,indicador,int,integer,long,nr,obj,sbyte,str,string,uint,ulong,short,ushort
-```
+
+Parâmetros:
+
+* `WordsToAvoid: bool,byte,char,dbl,decimal,double,flag,float,indicador,int,integer,long,nr,obj,sbyte,str,string,uint,ulong,short,ushort` define palavras que são proibidas de usar como prefixo nas propriedades.
+
 #### ResponseWithout4xxAnd500
+
 A API deve conter ao menos uma resposta de erro 4xx e uma resposta 500.
 
 <sup>*Verifique se há pelo menos uma resposta de erro 4xx tratando o request e uma resposta 500 para problemas no servidor.*</sup>
+
 #### StringCouldBeNumber
+
 Atributos ou parâmetros que representem números ou valores financeiros devem ser tipados como number.
 
 <sup>*Verifique se o atributo ou parâmetro pode ser representado como number.*</sup>
-```
-CurrencySymbols: $,.?,?,?.,?.?.,??,???,???.,¢,£,¥,€,AMD,Ar,AUD,B/.,BND,Br,Bs.,Bs.,Bs.S.,C$,CUC,D,Db,din.,Esc,ƒ,FOK,Fr,Fr.,Ft,G,GBP,GGP,INR,JOD,K,Kc,KM,kn,kr,Ks,Kz,L,Le,lei,m,MAD,MK,MRU,MT,Nfk,Nu.,NZD,P,PND,Q,R,R$,RM,Rp,Rs,RUB,S/.,SGD,Sh,Sl,so'm,T,T$,UM,USD,Vt,ZAR,ZK,zl
-```
+
+Parâmetros:
+
+* `CurrencySymbols: $,.?,?,?.,?.?.,??,???,???.,¢,£,¥,€,AMD,Ar,AUD,B/.,BND,Br,Bs.,Bs.,Bs.S.,C$,CUC,D,Db,din.,Esc,ƒ,FOK,Fr,Fr.,Ft,G,GBP,GGP,INR,JOD,K,Kc,KM,kn,kr,Ks,Kz,L,Le,lei,m,MAD,MK,MRU,MT,Nfk,Nu.,NZD,P,PND,Q,R,R$,RM,Rp,Rs,RUB,S/.,SGD,Sh,Sl,so'm,T,T$,UM,USD,Vt,ZAR,ZK,zl` define uma lista de caracteres considerados como notação de moeda a ser utilizado para determinar se o valor do campo pode ser moeda.
+
+
 #### ValidResponseCodes
+
 A API deve utilizar códigos de resposta HTTP válidos.
 
 <sup>*Utilize apenas um destes códigos HTTP: {0}.*</sup>
-```
-ValidHttpCodes: 200,201,202,204,206,301,303,304,307,400,401,403,404,405,410,414,422,428,429,500,501,503,504
-```
+
+Parâmetros:
+
+* `ValidHttpCodes: 200,201,202,204,206,301,303,304,307,400,401,403,404,405,410,414,422,428,429,500,501,503,504` define uma lista de HTTP Status Codes permitidos. Substitui o {0} na descrição.
+
+
 #### VersionFormat
+
 A versão da API deve respeitar o formato {0}. Ex: {1}.
 
 <sup>*Regex do formato: {0}.*</sup>
-```
-Example: v2
-HumanReadeableFormat: 'v' + integer version number
-RegexExpectedFormat: ^(v\d+)$
-```
 
+Parâmetros: 
 
-# Detalhes técnicos
-
-O sistema converte um OAS v1, v2 ou v3, YAML ou JSON em um objeto comum onde é possível acessar programaticamente todos os componentes do contrato: paths, verbos, exemplos, descrições, etc.  O Jhulis executa o conjunto de regras analisando este objeto e preenchendo uma lista de apontamentos quando uma destas regras não é aplicada.
-
-
-(como trocar a porta e endereço) https://localhost:5001
-
-(criar regra)
-trocar ordem
-remover regra
-
-semantic versioning
-Citar que em breve isto vai ser feito via config
+* `Example: v2` define um exemplo que entra na descrição. Substitui o {1} na descrição.
+* `HumanReadeableFormat: 'v' + integer version number` define a explicação do formato que entra na descrição. Substitui o {0} na descrição.
+* `RegexExpectedFormat: ^(v\d+)$` define a expressão regular que testa o padrão esperado para os Path Parameters.
 
 # Contribua
 
-Para feedbacks ou dúvidas
+Para feedbacks ou dúvidas, entre em contato no canal do Slack http://jhulis.slack.com ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
 
-To provide feedback and ask questions you can use Stack Overflow with the OpenAPI.NET tag or use the OpenAPI.NET Slack channel which you can join by registering for the HTTP APIs team at http://slack.httpapis.com.
+Para colaborar com o desenvolvimento, entre em contato através do canal do Slack. Sua colaboração é bem vinda.
+
+Para Pull Requests, seguir o Git Flow, criar seu próprio fork e solicitar o Pull Request.
+
+Adote as boas práticas de código: revise os apontamentos do [Code Analysis](https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.MicrosoftCodeAnalysis2019) ou do [ReSharper](https://marketplace.visualstudio.com/items?itemName=JetBrains.ReSharper), adote as [Diretrizes de nomenclatura da Microsoft](https://docs.microsoft.com/pt-br/dotnet/standard/design-guidelines/naming-guidelines) e [Convenções de Nomes](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions).
+
+## Versionamento
+
+O Jhulis é versionado seguindo o https://semver.org. Portanto:
+* **Path**: Documentação, correção de bugs e refatoração.
+* **Minor**: Criação / remoção de regras, novas funcionalidades ou alteração do comportamento de alguma regra.
+* **Major**: Alterações nas APIs ou no Core que quebrem os consumidores atuais.
+
+## Detalhes técnicos
+
+Se você pretende desenvolver ou alterar comportamentos do Jhulis que ainda não estão disponíveis através de parametrizações, verifique as informações à seguir.
+
+### Funcionamento básico
+
+O Jhulis, usando o [OpenAPI.Net](https://github.com/microsoft/OpenAPI.NET/), converte um documento OAS v1, v2 ou v3 em YAML ou JSON em um objeto comum do tipo `Microsoft.OpenApi.Models.OpenApiDocument` onde é possível acessar programaticamente todos os componentes do contrato: paths, verbos, exemplos, descrições, etc.
+
+As controllers da `Jhulis.Rest.ContractController` chamam o `Jhulis.Core.Processor`, que executa cada umas das regras em sequência e acumula o resultado de cada uma delas em um objeto `Jhulis.Core.Result.ResultItens`.
+
+Cada regra acessa os itens do `OpenApiDocument` pertinentes à ela e faz o teste. Se não passar, coloca o texto explicando a regra e onde infringiu no `Jhulis.Core.Result.ResultItens` que está presente em uma classe base `Jhulis.Core.Rules.RuleBase` da qual todas as regras herdam.
+
+Como os itens dos contratos no `OpenApiDocument` são "aninhados", repetir vários loops o tempo todo nas regras não é produtivo. Para evitar isso, algumas extrações que são usadas com frequência, por exemplo, listar todas as propriedades de um body, estão presentes na `Jhulis.Core.Helpers.Extensions.OpenApiDocumentExtensions`. Como nestas extrações algumas estruturas do OpenApiDocument são simplificadas, para evitar reprocessamento o tempo todo, armazeno-as em cache após a primeira execução. O cache vem da Jhulis.Rest para que haja apenas um por contexto de execução da API.
+
+### Como trocar o base path da aplicação
+
+No `Jhulis.Rest\appsetting.json` definir o atributo `"BasePath": "/jhulis/v0"`.
+
+### Como trocar o host e porta da aplicaçao
+
+Editar o `Jhulis.Rest\Properties\launchSettings.json`
+
+### Como criar uma nova regra
+
+Crie uma classe nova em `Jhulis.Core.Rules`.com um nome representando o que ela valida + `Rule.cs`. Baseie sua implementação em uma já existente. Defina o ruleName = "NomeDaSuaRegra". Na herança à base, defina o nível de severidade `Severity.[Hint, Error etc.]`. Lembre-se de adicionar a verificação por supressions no código.
+
+Em `Jhulis.Core.Resources.RuleSet.resx` crie uma nova entrada com o nome da sua regra e preencha a descrição e os detalhes. Baseie em uma regra já existente.
+
+Adicione a chamada à nova regra no `Jhulis.Core.Processor`.
+
+Em `Jhulis.Core.Test.Rules` baseie-se nos testes já existentes e crie um teste para a nova regra. Escreva com cenários um OAS que infrinjam a regra e que não infrinjam. Utilize o XUnit.
+
+### Alterar uma regra
+
+Baseie-se nas instruções acima e altere o código de uma regra já existente.
+
+### Trocar a ordem da execução
+
+Em `Jhulis.Core.Processor` troque a ordem.
+
+### Remover regra
+
+Em `Jhulis.Core.Processor` remova a regra.
+
+### Alterar o texto da regra ou traduzir
+
+Altere o `Jhulis.Core.Resources.RuleSet.resx`.
+
+# Suporte
+
+Para feedbacks ou dúvidas, entre em contato no canal do Slack http://jhulis.slack.com ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
