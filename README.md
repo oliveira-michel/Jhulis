@@ -464,7 +464,7 @@ Para feedbacks ou dúvidas, entre em contato no canal do Slack http://jhulis.sla
 
 Para colaborar com o desenvolvimento, entre em contato através do canal do Slack. Sua colaboração é bem vinda.
 
-Para Pull Requests, seguir o Git Flow, criar seu próprio fork e solicitar o Pull Request.
+Para Pull Requests, seguir o [Git Flow](https://github.com/App-vNext/Polly/wiki/Git-Workflow), criar seu próprio fork e solicitar o Pull Request.
 
 Adote as boas práticas de código: revise os apontamentos do [Code Analysis](https://marketplace.visualstudio.com/items?itemName=VisualStudioPlatformTeam.MicrosoftCodeAnalysis2019) ou do [ReSharper](https://marketplace.visualstudio.com/items?itemName=JetBrains.ReSharper), adote as [Diretrizes de nomenclatura da Microsoft](https://docs.microsoft.com/pt-br/dotnet/standard/design-guidelines/naming-guidelines) e [Convenções de Nomes](https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/general-naming-conventions).
 
