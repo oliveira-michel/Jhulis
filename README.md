@@ -1,6 +1,6 @@
 ![licence-MIT](https://img.shields.io/github/license/oliveira-michel/Jhulis?style=flat-square) 
 ![tag](https://img.shields.io/github/v/release/oliveira-michel/Jhulis?include_prereleases&style=flat-square)
-![last-commit](https://img.shields.io/github/last-commit/oliveira-michel/jhulis)
+![last-commit](https://img.shields.io/github/last-commit/oliveira-michel/jhulis?&style=flat-square)
 
 # Jhulis (beta)
 
