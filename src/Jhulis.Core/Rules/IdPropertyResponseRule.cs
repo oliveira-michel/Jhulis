@@ -38,7 +38,10 @@ namespace Jhulis.Core.Rules
                     properties.First().ResponseCode)) continue;
 
                 if (
-                    properties.First().ResponseCode != "204" && (properties.First().ResponseCode.StartsWith("2") || properties.First().ResponseCode.StartsWith("3"))
+                    properties.First().InsideOf == OpenApiDocumentExtensions.Property.BodyType.Response &&
+                    properties.First().ResponseCode != null &&
+                    properties.First().ResponseCode != "204" &&
+                    (properties.First().ResponseCode.StartsWith("2") || properties.First().ResponseCode.StartsWith("3"))
                     && properties.All(prop => prop.Name != idPropertyName))
                     listResult.Add(
                         new ResultItem(this)

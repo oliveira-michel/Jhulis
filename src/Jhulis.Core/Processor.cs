@@ -12,12 +12,11 @@ namespace Jhulis.Core
     public class Processor
     {
         private readonly IOptions<RuleSettings> ruleSettings;
-        private OpenApiDocumentCache cache;
+        private OpenApiDocumentCache cache = new OpenApiDocumentCache();
         
-        public Processor(IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache)
+        public Processor(IOptions<RuleSettings> ruleSettings)
         {
             this.ruleSettings = ruleSettings;
-            this.cache = cache;
         }
 
         public Result Validate(string oasContent, List<Supression> supressionList = null)

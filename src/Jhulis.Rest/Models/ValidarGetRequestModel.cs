@@ -7,7 +7,7 @@ namespace Jhulis.Rest.Models
     {
         [Required]
         public string Content { get; set; }
-        public List<Supression> Supressions { get;}
+        public List<Supression> Supressions { get; set; }
     }
 
     public class Supression

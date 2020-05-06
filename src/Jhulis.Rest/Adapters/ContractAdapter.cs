@@ -40,24 +40,23 @@ namespace Jhulis.Adapters
 
         public static List<Core.Supression> ToSupressions(this List<Rest.Models.Supression> supresionList)
         {
-            if (supresionList == null) throw new ArgumentNullException(nameof(supresionList));
-
             var supressions = new List<Core.Supression>();
 
-            foreach (var supression in supresionList)
-                supressions.Add(new Core.Supression()
-                {
-                    Justification = supression.Justification,
-                    RuleName = supression.RuleName,
-                    Target = supression.Target
-                });
+            if (supresionList != null)
+                foreach (var supression in supresionList)
+                    supressions.Add(new Core.Supression()
+                    {
+                        Justification = supression.Justification,
+                        RuleName = supression.RuleName,
+                        Target = supression.Target
+                    });
 
             return supressions;
         }
         public static string ToText(this Result result)
         {
             if (result == null) throw new ArgumentNullException(nameof(result));
-            
+
             var sb = new StringBuilder();
             sb.Append("Result: ").Append(result.Status).Append(Environment.NewLine).Append(Environment.NewLine);
 

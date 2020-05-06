@@ -21,12 +21,10 @@ namespace Jhulis.Rest.Controllers
     public class ContractController : ControllerBase
     {
         private readonly IOptions<RuleSettings> ruleSettings;
-        private readonly OpenApiDocumentCache cache;
 
-        public ContractController(IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache)
+        public ContractController(IOptions<RuleSettings> ruleSettings)
         {
             this.ruleSettings = ruleSettings;
-            this.cache = cache;
         }
 
         /// <summary>
@@ -50,7 +48,7 @@ namespace Jhulis.Rest.Controllers
 
             try
             {
-                result = new Processor(ruleSettings, cache).Validate(request.Content, request.Supressions.ToSupressions());
+                result = new Processor(ruleSettings).Validate(request.Content, request.Supressions.ToSupressions());
             }
             catch (InvalidOpenApiDocumentException e)
             {
@@ -95,7 +93,7 @@ namespace Jhulis.Rest.Controllers
                 {
                     string contract = await reader.ReadToEndAsync().ConfigureAwait(false);
 
-                    result = new Processor(ruleSettings, cache).Validate(contract);
+                    result = new Processor(ruleSettings).Validate(contract);
                 }
             }
             catch (InvalidOpenApiDocumentException e)
