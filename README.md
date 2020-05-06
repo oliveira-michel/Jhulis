@@ -2,6 +2,11 @@
 ![tag](https://img.shields.io/github/v/release/oliveira-michel/Jhulis?include_prereleases&style=flat-square)
 ![last-commit](https://img.shields.io/github/last-commit/oliveira-michel/jhulis?&style=flat-square)
 
+<p align="center">
+
+![logo](docs/images/jhulis-logo-150.png)
+
+</p>
 # Jhulis (beta)
 
 Melhore a qualidade das suas REST APIs.
