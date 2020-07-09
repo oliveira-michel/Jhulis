@@ -12,8 +12,9 @@ on:
 # 2. Change these variables for your configuration:
 env:
   AZURE_APP_NAME: api-jhulis         # set this to your application's name
-  AZURE_APP_PACKAGE_PATH: '/src'    # set this to the path to your web app project, defaults to the repository root
-  DOTNET_VERSION: '3.1.101'              # set this to the dotnet version to use
+  AZURE_APP_PACKAGE_PATH: '/src/release-output'     # set this to the path to your builded web app project, defaults to the repository root
+  AZURE_APP_CODE_PATH: '/src'     # set this to the path to your web app project
+  DOTNET_VERSION: '3.1.101'          # set this to the dotnet version to use
 
 jobs:
   build-and-deploy:
@@ -29,7 +30,7 @@ jobs:
 
     - name: dotnet build and publish
       run: |
-        dotnet build --configuration Release
+        dotnet build '${{ env.AZURE_APP_CODE_PATH }}' --configuration Release
         dotnet publish -c Release -o '${{ env.AZURE_APP_PACKAGE_PATH }}' 
 
     - name: 'Run Azure webapp deploy action using publish profile credentials'
