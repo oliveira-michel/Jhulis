@@ -12,7 +12,7 @@ on:
 # 2. Change these variables for your configuration:
 env:
   AZURE_APP_NAME: api-jhulis         # set this to your application's name
-  AZURE_APP_PACKAGE_PATH: './src'    # set this to the path to your web app project, defaults to the repository root
+  AZURE_APP_PACKAGE_PATH: '/src'    # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '3.1.101'              # set this to the dotnet version to use
 
 jobs:
