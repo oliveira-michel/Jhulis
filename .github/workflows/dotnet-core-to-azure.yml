@@ -30,7 +30,7 @@ jobs:
 
     - name: dotnet build and publish
       run: |
-        dotnet build '${{ env.AZURE_APP_PROJ_SOLUTION_PATH }}' --configuration Release
+        dotnet -restore -build '${{ env.AZURE_APP_PROJ_SOLUTION_PATH }}' --configuration Release
         dotnet publish -c Release -o '${{ env.AZURE_APP_PACKAGE_PATH }}' 
 
     - name: 'Run Azure webapp deploy action using publish profile credentials'
