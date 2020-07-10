@@ -1,41 +1,60 @@
-name: Deploy DotNet project to Azure Function App
+# This workflow will build and push a .NET Core application to an Azure Web App on every push to the master branch.
+#
+# To configure this workflow:
+#
+# 1. Set up a secret in your repository named AZURE_WEBAPP_PUBLISH_PROFILE with the value of your Azure publish profile.
+#    Get the publish profile from the portal: https://docs.microsoft.com/visualstudio/deployment/tutorial-import-publish-settings-azure?view=vs-2019#create-the-publish-settings-file-in-azure-app-service
+#
+# 2. Change the values for the AZURE_WEBAPP_NAME, AZURE_WEBAPP_PACKAGE_PATH and NETCORE_VERSION environment variables  (below).
+#
+# For more information on GitHub Actions for Azure, refer to https://github.com/Azure/Actions
+# For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
+name: "Build and deploy"
 
 on:
-  [push]
+  push:
+    branches:
+      - master
 
-# CONFIGURATION
-# For help, go to https://github.com/Azure/Actions
-#
-# 1. Set up the following secrets in your repository:
-#   AZURE_APP_PUBLISH_PROFILE
-#
-# 2. Change these variables for your configuration:
 env:
-  AZURE_APP_NAME: api-jhulis         # set this to your application's name
-  AZURE_APP_PACKAGE_PATH: 'src'     # set this to the path to your builded web app project, defaults to the repository root
-  AZURE_APP_PROJ_SOLUTION_PATH: 'src'     # set this to the path to your web app project
-  DOTNET_VERSION: '3.1.101'          # set this to the dotnet version to use
+  AZURE_WEBAPP_NAME: api-jhulis              # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: './published'      # set this to the path to your web app project, defaults to the repository root
+  NETCORE_VERSION: '3.1.101'                    # set this to the .NET Core version to use
+  CODE_PATH:  'src'
 
 jobs:
-  build-and-deploy:
+  build:
+    name: Build and deploy
     runs-on: ubuntu-latest
     steps:
-    - name: 'Checkout GitHub Action'
-      uses: actions/checkout@master
+    - uses: actions/checkout@v2
 
-    - name: Setup DotNet ${{ env.DOTNET_VERSION }} Environment
+    - name: Setup .NET Core SDK ${{ env.NETCORE_VERSION }}
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
+        dotnet-version: ${{ env.NETCORE_VERSION }}
 
-    - name: dotnet build and publish
-      run: |
-        dotnet build ${{ env.AZURE_APP_PROJ_SOLUTION_PATH }} --configuration Release
-        dotnet publish ${{ env.AZURE_APP_PACKAGE_PATH }} -c Release -o ${{ env.AZURE_APP_PACKAGE_PATH }}
+    - name: Restore packages
+      run: dotnet restore ${{ env.CODE_PATH }}
 
-    - name: 'Run Azure webapp deploy action using publish profile credentials'
-      uses: azure/webapps-deploy@v2
-      with: 
-        app-name: ${{ env.AZURE_APP_NAME }} # Replace with your app name
-        publish-profile: ${{ secrets.AZURE_APP_PUBLISH_PROFILE  }} # Define secret variable in repository settings as per action documentation
-        package: '${{ env.AZURE_APP_PACKAGE_PATH }}'
+    - name: Build app
+      run: dotnet build ${{ env.CODE_PATH }} --configuration Release --no-restore
+
+    #- name: Test app
+    #  run: dotnet test --no-build
+
+    - name: Publish app for deploy
+      run: dotnet publish ${{ env.CODE_PATH }} --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - name: Deploy to Azure WebApp
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_APP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: webapp
+        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }} 
