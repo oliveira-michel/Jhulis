@@ -529,3 +529,7 @@ Altere o `Jhulis.Core.Resources.RuleSet.resx`.
 # Suporte
 
 Para feedbacks ou dúvidas, entre em contato no canal do Slack http://jhulis.slack.com ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
+
+# Publicações
+
+https://oliveira-michel.github.io/artigos/2020/05/11/como-o-jhulis-te-ajuda-a-manter-a-qualidade-dos-seus-contratos-de-apis.htm
