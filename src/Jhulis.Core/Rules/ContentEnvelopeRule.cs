@@ -33,7 +33,13 @@ namespace Jhulis.Core.Rules
                 if (Supressions.IsSupressed(ruleName, response.Path, response.Operation, string.Empty, response.Name))
                     continue;
 
-                if (response.Name != "204" && (response.Name.StartsWith('2') || response.Name.StartsWith('3'))
+                //GET e POST são mais prováveis de ter payload.
+                //DELETE, PUT e PATCH são fortes candidatos a não terem payload
+                //204, 201 e 3xx são fortes candidatos a não terem payload
+                //200 e 206 são fortes candidatos a terem payload
+                if (
+                       (response.Operation == "get" || response.Operation == "post")
+                    && (response.Name == "200" || response.Name != "206")
                     && MissingEnvelopeProperty(response.OpenApiResponseObject))
                     listResult.Add(
                         new ResultItem(this)
