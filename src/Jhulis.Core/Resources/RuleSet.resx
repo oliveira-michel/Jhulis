@@ -216,13 +216,13 @@
   <data name="Http200WithoutPagination.Details" xml:space="preserve">
     <value>Oferecer paginação para o cliente, dá flexibilidade para ele trabalhar com um payload do tamanho que for melhor para ele.</value>
   </data>
-  <data name="Http201WithoutContentLocationHeader.Name" xml:space="preserve">
-    <value>Http201WithoutContentLocationHeader</value>
+  <data name="Http201WithoutLocationHeader.Name" xml:space="preserve">
+    <value>Http201WithoutLocationHeader</value>
   </data>
-  <data name="Http201WithoutContentLocationHeader.Description" xml:space="preserve">
-    <value>Resposta do tipo HTTP 201 deve ter um Header Content-Location</value>
+  <data name="Http201WithoutLocationHeader.Description" xml:space="preserve">
+    <value>Resposta do tipo HTTP 201 deve ter um Header Location</value>
   </data>
-  <data name="Http201WithoutContentLocationHeader.Details" xml:space="preserve">
+  <data name="Http201WithoutLocationHeader.Details" xml:space="preserve">
     <value>Este tipo de resposta representa criação de dados e precisa indicar a URL que representa o recurso recém criado.</value>
   </data>
   <data name="Http3xxWithoutLocationHeader.Name" xml:space="preserve">

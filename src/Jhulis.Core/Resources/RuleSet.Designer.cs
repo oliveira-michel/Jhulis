@@ -358,29 +358,29 @@ namespace Jhulis.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Resposta do tipo HTTP 201 deve ter um Header Content-Location.
+        ///   Looks up a localized string similar to Resposta do tipo HTTP 201 deve ter um Header Location.
         /// </summary>
-        public static string Http201WithoutContentLocationHeader_Description {
+        public static string Http201WithoutLocationHeader_Description {
             get {
-                return ResourceManager.GetString("Http201WithoutContentLocationHeader.Description", resourceCulture);
+                return ResourceManager.GetString("Http201WithoutLocationHeader.Description", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Este tipo de resposta representa criação de dados e precisa indicar a URL que representa o recurso recém criado..
         /// </summary>
-        public static string Http201WithoutContentLocationHeader_Details {
+        public static string Http201WithoutLocationHeader_Details {
             get {
-                return ResourceManager.GetString("Http201WithoutContentLocationHeader.Details", resourceCulture);
+                return ResourceManager.GetString("Http201WithoutLocationHeader.Details", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Http201WithoutContentLocationHeader.
+        ///   Looks up a localized string similar to Http201WithoutLocationHeader.
         /// </summary>
-        public static string Http201WithoutContentLocationHeader_Name {
+        public static string Http201WithoutLocationHeader_Name {
             get {
-                return ResourceManager.GetString("Http201WithoutContentLocationHeader.Name", resourceCulture);
+                return ResourceManager.GetString("Http201WithoutLocationHeader.Name", resourceCulture);
             }
         }
         

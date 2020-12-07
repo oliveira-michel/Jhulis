@@ -56,7 +56,7 @@ namespace Jhulis.Core
             analisysResult.ResultItens.TryAddEmptiableRange(new MessagesEnvelopeFormatRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new ErrorResponseFormatRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new ValidResponseCodesRule(openApiContract, supressions, ruleSettings, cache).Execute());
-            analisysResult.ResultItens.TryAddEmptiableRange(new Http201WithoutContentLocationHeaderRule(openApiContract, supressions, ruleSettings, cache).Execute());
+            analisysResult.ResultItens.TryAddEmptiableRange(new Http201WithoutLocationHeaderRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new ResponseWithout4xxAnd500Rule(openApiContract, supressions, ruleSettings, cache).Execute());
             
             //Information

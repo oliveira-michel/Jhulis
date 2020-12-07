@@ -27,6 +27,16 @@ namespace Jhulis
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<RuleSettings>(Configuration.GetSection("RuleSettings"));
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                    builder.SetIsOriginAllowed(_ => true)
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader());
+            });
+
             services.AddControllers();
         }
 
@@ -39,6 +49,8 @@ namespace Jhulis
             }
 
             app.UsePathBase(new PathString(Configuration.GetSection("BasePath").Value.ToLower()));
+
+            app.UseCors();
 
             app.UseRouting();
 

@@ -8,7 +8,6 @@ namespace Jhulis.Rest.Models
     {
         [EnumDataType(typeof(Status))]
         public string Result { get; set; }
-
         public List<ResultItemModel> ResultItens { get; set; }
     }
 

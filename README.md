@@ -287,8 +287,8 @@ Parâmetros:
 * `ContentEnvelopeName: data` define qual é o envelope em que o Jhulis irá verificar se é um array.
 * `PaginationEnvelopeName: pagination` define o nome de paginação em que o Jhulis irá verificar a existência.
 
-#### Http201WithoutContentLocationHeader
-Resposta do tipo HTTP 201 deve ter um Header Content-Location
+#### Http201WithoutLocationHeader
+Resposta do tipo HTTP 201 deve ter um Header Location
 
 <sup>*Este tipo de resposta representa criação de dados e precisa indicar a URL que representa o recurso recém criado.*</sup>
 

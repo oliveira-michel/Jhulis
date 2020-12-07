@@ -11,16 +11,16 @@ using Jhulis.Core.Resources;
 
 namespace Safra.Gsa.QaSwagger.Test.Rules
 {
-    public class Http201WithoutContentLocationHeaderRuleTest
+    public class Http201WithoutLocationHeaderRuleTest
     {
         private OpenApiDocument openApiContract;
         private Supressions supressions;
         private Supressions supressionEntireRule;
         private IOptions<RuleSettings> ruleSettings;
-        private const string ruleName = "Http201WithoutContentLocationHeader";
+        private const string ruleName = "Http201WithoutLocationHeader";
         private OpenApiDocumentCache cache; 
 
-        public Http201WithoutContentLocationHeaderRuleTest()
+        public Http201WithoutLocationHeaderRuleTest()
         {
             const string contract =
                 "{\n  \"swagger\": \"2.0\",\n  \"info\": {\n    \"title\": \"teste 2\",\n    \"version\": \"1.0\"\n  },\n  \"consumes\": [\n    \"application/json\"\n  ],\n  \"produces\": [\n    \"application/json\"\n  ],\n  \"paths\": {\n    \"/path-one\": {\n      \"post\": {\n        \"responses\": {\n          \"201\": {\n            \"description\": \"Status 201\",\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"noDataEnvelope\": {\n                  \"type\": \"object\",\n                  \"properties\": {\n                    \"propertyOne\": {\n                      \"type\": \"string\"\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/path-two\": {\n      \"post\": {\n        \"responses\": {\n          \"201\": {\n            \"description\": \"Status 201\",\n            \"schema\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"noDataEnvelope\": {\n                  \"type\": \"object\",\n                  \"properties\": {\n                    \"propertyOne\": {\n                      \"type\": \"string\"\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}";
@@ -41,11 +41,11 @@ namespace Safra.Gsa.QaSwagger.Test.Rules
         public void Execute()
         {
             List<ResultItem> results =
-                new Http201WithoutContentLocationHeaderRule(openApiContract, supressions, ruleSettings, cache).Execute();
+                new Http201WithoutLocationHeaderRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
             Assert.Equal("Path='/path-two',Operation='post',ResponseCode='201'", results[0].Value);
 
-            Assert.True(new Http201WithoutContentLocationHeaderRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
+            Assert.True(new Http201WithoutLocationHeaderRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
                             .Count == 0);
         }
     }

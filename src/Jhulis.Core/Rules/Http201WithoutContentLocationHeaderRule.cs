@@ -8,16 +8,16 @@ using Jhulis.Core.Helpers.Extensions;
 
 namespace Jhulis.Core.Rules
 {
-    public class Http201WithoutContentLocationHeaderRule : RuleBase
+    public class Http201WithoutLocationHeaderRule : RuleBase
     {
-        private const string ruleName = "Http201WithoutContentLocationHeader";
+        private const string ruleName = "Http201WithoutLocationHeader";
         private readonly OpenApiDocumentCache cache;
 
         /// <summary>
         /// Validate if a resource that returns some 201 answers has Content-Location header.
         /// Supressions: Rule,Path,Operation
         /// </summary>
-        public Http201WithoutContentLocationHeaderRule(OpenApiDocument contract,
+        public Http201WithoutLocationHeaderRule(OpenApiDocument contract,
             Supressions supressions, IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache) :
             base(contract, supressions, ruleSettings, cache, ruleName, Severity.Warning)
         {
@@ -39,7 +39,7 @@ namespace Jhulis.Core.Rules
                 {
                     if (
                         (response.Name == "201")
-                        && !response.OpenApiResponseObject.Headers.ContainsKey("Content-Location")
+                        && !response.OpenApiResponseObject.Headers.ContainsKey("Location")
                     )
                         listResult.Add(
                             new ResultItem(this)

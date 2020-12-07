@@ -104,7 +104,7 @@ namespace Jhulis.Core.Helpers.Extensions
 
                             resultItens.TryAddEmptiableRange(
                                 GetInnerProperties(path.Key, operation.Key.ToString(),
-                                    null, content.Key, null,
+                                    /*body de entrada não tem response code*/null, content.Key, null,
                                     propertyList, Property.BodyType.Request, maxDepth, currentDepth)
                             );
                         }
