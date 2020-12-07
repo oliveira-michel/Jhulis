@@ -26,6 +26,7 @@ namespace Jhulis.Core.Rules
 
         //Path|Operation|Response|Content 
         private HashSet<string> schemasWithoutExample = new HashSet<string>();
+        private HashSet<string> schemasWithExample = new HashSet<string>();
 
         private protected override void ExecuteRuleLogic()
         {
@@ -44,23 +45,20 @@ namespace Jhulis.Core.Rules
                             response.Key))
                             continue;
 
-                        foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
-                        {
-                            //It is an object with schema
-                            if (content.Value.Schema != null)
-                            {
-                                if (content.Value.Schema.Example == null)
-                                    schemasWithoutExample.Add(
-                                        $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}|{response.Key}|{content.Key}");
-                            }
-                            else //May be a content without schema
-                            {
-                                if (content.Value != null && content.Value.Example == null &&
-                                    content.Value.Examples.Count == 0)
-                                    schemasWithoutExample.Add(
-                                        $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}|{response.Key}|{content.Key}");
-                            }
-                        }
+                        //Here, we want at least one example at response type level
+                        bool foundExample = response.Value.Content.Any(x =>
+                                x.Value?.Schema?.Example != null
+                            || (x.Value?.Example != null)
+                            || (x.Value?.Examples != null && x.Value?.Examples.Count > 0));
+
+                        if (!foundExample)
+                            foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
+                                schemasWithoutExample.Add(
+                                    $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}|{response.Key}|{content.Key}");
+                        else
+                            foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
+                                schemasWithExample.Add(
+                                    $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}|{response.Key}|{content.Key}");
                     }
 
                     //Search for schemas with empty examples in request
@@ -68,6 +66,7 @@ namespace Jhulis.Core.Rules
                         foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
                             if (content.Value.Schema != null)
                             {
+                                //TODO, colocar a mesma verificação acima.
                                 //It is an object with schema
                                 if (content.Value.Schema != null)
                                 {
@@ -103,6 +102,10 @@ namespace Jhulis.Core.Rules
                     currentBody = $"{property.Path}|{property.Operation}|{property.ResponseCode}|{property.Content}";
                     propertyLevelWithExample.Clear();
                 }
+
+                //This property is into an schema with example at schema level.
+                if (schemasWithExample.Contains(currentBody))
+                    continue;
 
                 //Define current depth as last one with example
                 //Clear item from schemasWithoutExample list 
