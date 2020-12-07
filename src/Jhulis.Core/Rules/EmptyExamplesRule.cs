@@ -32,7 +32,7 @@ namespace Jhulis.Core.Rules
         {
             //Examples in parameters in query, path or header (operation.Value.Parameters[0].Example e Examples) are always empty
             //OAS do not define example for these items
-            
+
             foreach (KeyValuePair<string, OpenApiPathItem> path in Contract.Paths)
             {
                 foreach (KeyValuePair<OperationType, OpenApiOperation> operation in path.Value.Operations)
@@ -63,25 +63,23 @@ namespace Jhulis.Core.Rules
 
                     //Search for schemas with empty examples in request
                     if (operation.Value?.RequestBody?.Content != null)
-                        foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
-                            if (content.Value.Schema != null)
-                            {
-                                //TODO, colocar a mesma verificação acima.
-                                //It is an object with schema
-                                if (content.Value.Schema != null)
-                                {
-                                    if (content.Value.Schema.Example == null)
-                                        schemasWithoutExample.Add(
-                                            $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}||{content.Key}");
-                                }
-                                else //May be a content without schema
-                                {
-                                    if (content.Value != null && content.Value.Example == null &&
-                                        content.Value.Examples.Count == 0)
-                                        schemasWithoutExample.Add(
-                                            $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}||{content.Key}");
-                                }
-                            }
+                    {
+                        //TODO Add an test for this part
+                        //Here, we want at least one example at content level
+                        bool foundExample = operation.Value?.RequestBody?.Content.Any(x =>
+                                x.Value.Schema?.Example != null
+                            || (x.Value?.Example != null)
+                            || (x.Value?.Examples != null && x.Value.Examples.Count > 0)) == true;
+
+                        if (!foundExample)
+                            foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
+                                schemasWithoutExample.Add(
+                                     $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}||{content.Key}");
+                        else
+                            foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
+                                schemasWithExample.Add(
+                                     $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}||{content.Key}");
+                    }
                 }
             }
 
