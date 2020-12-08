@@ -463,9 +463,9 @@ Parâmetros:
 
 # Contribua
 
-Para feedbacks ou dúvidas, entre em contato no canal do Slack http://jhulis.slack.com ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
+Para feedbacks ou dúvidas, entre em contato via [Discussions](https://github.com/oliveira-michel/Jhulis/discussions) ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
 
-Para colaborar com o desenvolvimento, entre em contato através do canal do Slack. Sua colaboração é bem vinda.
+Para colaborar com o desenvolvimento, entre em contato via [Discussions](https://github.com/oliveira-michel/Jhulis/discussions). Sua colaboração é bem vinda.
 
 Para Pull Requests, seguir o [Git Flow](https://github.com/App-vNext/Polly/wiki/Git-Workflow), criar seu próprio fork e solicitar o Pull Request.
 
@@ -528,7 +528,7 @@ Altere o `Jhulis.Core.Resources.RuleSet.resx`.
 
 # Suporte
 
-Para feedbacks ou dúvidas, entre em contato no canal do Slack http://jhulis.slack.com ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
+Para feedbacks ou dúvidas, entre em contato via [Discussions](https://github.com/oliveira-michel/Jhulis/discussions) ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
 
 # Publicações
 
