@@ -39,7 +39,7 @@ namespace Jhulis.Core.Rules
                 //200 e 206 são fortes candidatos a terem payload
                 if (
                        (response.Operation == "get" || response.Operation == "post")
-                    && (response.Name == "200" || response.Name != "206")
+                    && (response.Name == "200" || response.Name == "206")
                     && MissingEnvelopeProperty(response.OpenApiResponseObject))
                     listResult.Add(
                         new ResultItem(this)
