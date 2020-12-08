@@ -7,6 +7,8 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Jhulis.Core.Helpers.Extensions;
+using System.Text.RegularExpressions;
+using Jhulis.Core.Resources;
 
 namespace Jhulis.Core.Rules
 {
@@ -36,6 +38,7 @@ namespace Jhulis.Core.Rules
                     .Where(property =>
                         property.OpenApiSchemaObject.Type.ToLower() == "string" &&
                         property.Example is OpenApiString apiString &&
+                        !Regex.IsMatch(apiString.Value, RegexLibrary.IpV4) &&//It is not an IP v4
                         IsLikelyNumberType(apiString.Value))
                     .ToList();
 
@@ -56,7 +59,7 @@ namespace Jhulis.Core.Rules
         }
 
         /// <summary>
-        /// Check if example shows that value is lilekihood a number or currency.
+        /// Check if example shows that value is likelihood a number or currency.
         /// </summary>
         /// <param name="value">example given</param>
         /// <returns></returns>
