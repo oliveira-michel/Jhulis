@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Jhulis.Core;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 namespace Jhulis
 {
@@ -27,16 +28,17 @@ namespace Jhulis
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<RuleSettings>(Configuration.GetSection("RuleSettings"));
+            services.Configure<KestrelServerOptions>(Configuration.GetSection("Kestrel"));
 
+            var corsOptions = Configuration.GetSection("Cors").Get<CorsOptions>();
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
                     builder.SetIsOriginAllowed(_ => true)
-                        .AllowAnyOrigin()
+                        .WithOrigins(corsOptions.AllowedClients)
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
-
             services.AddControllers();
         }
 
