@@ -34,8 +34,7 @@ namespace Jhulis
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
-                    builder.SetIsOriginAllowed(_ => true)
-                        .WithOrigins(corsOptions.AllowedClients)
+                    builder.WithOrigins(corsOptions.AllowedClients)
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
