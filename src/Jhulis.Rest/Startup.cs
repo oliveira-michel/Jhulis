@@ -38,6 +38,9 @@ namespace Jhulis
                         .AllowAnyMethod()
                         .AllowAnyHeader());
             });
+
+            services.AddHealthChecks();
+
             services.AddControllers();
         }
 
@@ -60,6 +63,7 @@ namespace Jhulis
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/health");
             });
         }
     }
