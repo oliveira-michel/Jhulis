@@ -28,6 +28,10 @@ Principais recursos:
   
 > *"Não tropeçamos nas grandes montanhas mas nas pequenas pedras." Augusto Cury*
 
+## Experimentar online
+
+Acesse https://oliveira-michel.github.io/jhulis para ter uma visão de cliente sobre o funcionamento do Jhulis.
+
 ## Build & Run
 
 Faça download do [.NET Core 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) e instale.
