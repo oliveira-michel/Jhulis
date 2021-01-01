@@ -526,6 +526,23 @@ Em `Jhulis.Core.Processor` remova a regra.
 
 Altere o `Jhulis.Core.Resources.RuleSet.resx`.
 
+### Health Check
+
+Responde em [host]/health. Está configurada na Startup.cs.
+
+### CORS
+
+Os hosts permitidos para fazer chamadas à partir de um website carregado no cliente via navegador ficam no appsettings.json na chave Cors. Use "\*" para liberar qualquer acesso.
+```
+ "Cors": {
+    "AllowedClients": [ "https://oliveira-michel.github.io" ]
+  }
+```
+
+### Throttling
+
+Capacidades básicas de limitação na quantidade e tamanho das requisições estão configuradas no appsettings.json na chave "Kestrel"."Limits" conforme [documentação do Kestrel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.server.kestrel.core.kestrelserverlimits?view=aspnetcore-5.0).
+
 # Suporte
 
 Para feedbacks ou dúvidas, entre em contato via [Discussions](https://github.com/oliveira-michel/Jhulis/discussions) ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
