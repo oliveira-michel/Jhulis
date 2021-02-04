@@ -331,6 +331,33 @@ namespace Jhulis.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Adicione um Health Check na sua API..
+        /// </summary>
+        public static string HealthCheck_Description {
+            get {
+                return ResourceManager.GetString("HealthCheck.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A utilização de Health Check é uma boa prática no desenvolvimento de API para auxílio na monitoração..
+        /// </summary>
+        public static string HealthCheck_Details {
+            get {
+                return ResourceManager.GetString("HealthCheck.Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HealthCheck.
+        /// </summary>
+        public static string HealthCheck_Name {
+            get {
+                return ResourceManager.GetString("HealthCheck.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Respostas do tipo HTTP 200 que representem coleções podem ser paginadas..
         /// </summary>
         public static string Http200WithoutPagination_Description {

@@ -72,6 +72,7 @@ namespace Jhulis.Core
             analisysResult.ResultItens.TryAddEmptiableRange(new StringCouldBeNumberRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new DateWithoutFormatRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new Http200WithoutPaginationRule(openApiContract, supressions, ruleSettings, cache).Execute());
+            analisysResult.ResultItens.TryAddEmptiableRange(new HealthCheckRule(openApiContract, supressions, ruleSettings, cache).Execute());
 
             return analisysResult;
         }

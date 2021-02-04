@@ -405,4 +405,13 @@
   <data name="VersionFormat.Details" xml:space="preserve">
     <value>Regex do formato: {0}.</value>
   </data>
+  <data name="HealthCheck.Details" xml:space="preserve">
+    <value>A utilização de Health Check é uma boa prática no desenvolvimento de API para auxílio na monitoração.</value>
+  </data>
+  <data name="HealthCheck.Description" xml:space="preserve">
+    <value>Adicione um Health Check na sua API.</value>
+  </data>
+  <data name="HealthCheck.Name" xml:space="preserve">
+    <value>HealthCheck</value>
+  </data>
 </root>
