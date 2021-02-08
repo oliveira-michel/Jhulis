@@ -6,13 +6,14 @@ using Jhulis.Core.Helpers.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.Text.RegularExpressions;
 
 namespace Jhulis.Core.Rules
 {
     public class HealthCheckRule : RuleBase
     {
         private const string ruleName = "HealthCheck";
-        private static string[] healthCheckPaths;
+        private static Regex healthCheckRegex;
         //No supressions
 
         /// <summary>
@@ -23,7 +24,7 @@ namespace Jhulis.Core.Rules
             IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache) :
             base(contract, supressions, ruleSettings, cache, ruleName, Severity.Hint)
         {
-            healthCheckPaths = ruleSettings.Value.HealthCheckPaths.Paths.Split(',');
+            healthCheckRegex = new Regex($@"{ruleSettings.Value.HealthCheckPaths.Regex}", RegexOptions.Compiled);
         }
 
         private protected override void ExecuteRuleLogic()
@@ -38,11 +39,21 @@ namespace Jhulis.Core.Rules
         {
             foreach (KeyValuePair<string, OpenApiPathItem> path in Contract.Paths)
             {
-                foreach (var healthPath in healthCheckPaths)
+                string[] pathSplited =
+                    path.Key.StartsWith('/')
+                        ? path.Key.Substring(1).Split('/')
+                        : path.Key.Split('/');
+
+                foreach (string pathSegment in pathSplited)
                 {
-                    if (path.Key.ToLowerInvariant().Contains(healthPath))
+                    if (pathSegment.Contains("{") || string.IsNullOrEmpty(pathSegment)) continue;
+
+                    foreach (string word in pathSegment.SplitCompositeWord())
                     {
-                        return true;
+                        if (healthCheckRegex.IsMatch(word))
+                        {
+                            return true;
+                        }
                     }
                 }
             }

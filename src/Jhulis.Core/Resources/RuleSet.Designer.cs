@@ -340,7 +340,7 @@ namespace Jhulis.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A utilização de Health Check é uma boa prática no desenvolvimento de API para auxílio na monitoração..
+        ///   Looks up a localized string similar to A utilização de um endpoint de Health Check é uma boa prática para permitir que o cliente ou sistemas de monitoramento verifiquem a disponibilidade da sua API..
         /// </summary>
         public static string HealthCheck_Details {
             get {

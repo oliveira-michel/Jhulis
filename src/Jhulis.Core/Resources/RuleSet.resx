@@ -207,6 +207,15 @@
   <data name="ErrorResponseFormat.Details" xml:space="preserve">
     <value>As propriedades da resposta devem devem estar dentre estas: {0}. </value>
   </data>
+  <data name="HealthCheck.Details" xml:space="preserve">
+    <value>A utilização de um endpoint de Health Check é uma boa prática para permitir que o cliente ou sistemas de monitoramento verifiquem a disponibilidade da sua API.</value>
+  </data>
+  <data name="HealthCheck.Description" xml:space="preserve">
+    <value>Adicione um Health Check na sua API.</value>
+  </data>
+  <data name="HealthCheck.Name" xml:space="preserve">
+    <value>HealthCheck</value>
+  </data>
   <data name="Http200WithoutPagination.Name" xml:space="preserve">
     <value>Http200WithoutPagination</value>
   </data>
@@ -404,14 +413,5 @@
   </data>
   <data name="VersionFormat.Details" xml:space="preserve">
     <value>Regex do formato: {0}.</value>
-  </data>
-  <data name="HealthCheck.Details" xml:space="preserve">
-    <value>A utilização de Health Check é uma boa prática no desenvolvimento de API para auxílio na monitoração.</value>
-  </data>
-  <data name="HealthCheck.Description" xml:space="preserve">
-    <value>Adicione um Health Check na sua API.</value>
-  </data>
-  <data name="HealthCheck.Name" xml:space="preserve">
-    <value>HealthCheck</value>
   </data>
 </root>

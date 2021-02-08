@@ -34,7 +34,7 @@ namespace Jhulis.Core.Test.Rules
             {
                 HealthCheckPaths = new HealthCheckConfig()
                 {
-                    Paths = "health"
+                    Regex = "^health^"
                 }
             };
 

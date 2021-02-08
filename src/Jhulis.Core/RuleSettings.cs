@@ -122,6 +122,6 @@
 
     public class HealthCheckConfig
     {
-        public string Paths { get; set; }
+        public string Regex { get; set; }
     }
 }
