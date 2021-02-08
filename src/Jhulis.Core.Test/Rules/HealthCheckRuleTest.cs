@@ -34,7 +34,7 @@ namespace Jhulis.Core.Test.Rules
             {
                 HealthCheck = new HealthCheckConfig()
                 {
-                    Regex = "^(health)\b"
+                    Regex = "^\b(health)$"
                 }
             };
 
