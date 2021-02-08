@@ -24,7 +24,7 @@ namespace Jhulis.Core.Rules
             IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache) :
             base(contract, supressions, ruleSettings, cache, ruleName, Severity.Hint)
         {
-            healthCheckRegex = new Regex($@"{ruleSettings.Value.HealthCheckPaths.Regex}", RegexOptions.Compiled);
+            healthCheckRegex = new Regex($@"{ruleSettings.Value.HealthCheck.Regex}", RegexOptions.Compiled);
         }
 
         private protected override void ExecuteRuleLogic()

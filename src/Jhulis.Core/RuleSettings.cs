@@ -18,7 +18,7 @@
         public StringCouldBeNumberConfig StringCouldBeNumber { get; set; }
         public ValidResponseCodesConfig ValidResponseCodes { get; set; }
         public VersionFormatConfig VersionFormat { get; set; }
-        public HealthCheckConfig HealthCheckPaths { get; set; }
+        public HealthCheckConfig HealthCheck { get; set; }
     }
 
     public class ContentEnvelopeConfig
