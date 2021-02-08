@@ -465,6 +465,11 @@ Parâmetros:
 * `HumanReadeableFormat: 'v' + integer version number` define a explicação do formato que entra na descrição. Substitui o {0} na descrição.
 * `RegexExpectedFormat: ^(v\d+)$` define a expressão regular que testa o padrão esperado para os Path Parameters.
 
+#### HealthCheck
+Adicione um Health Check na sua API.
+
+<sup>*A utilização de Health Check é uma boa prática no desenvolvimento de API para auxílio na monitoração.*</sup>
+
 # Contribua
 
 Para feedbacks ou dúvidas, entre em contato via [Discussions](https://github.com/oliveira-michel/Jhulis/discussions) ou abra um [Issue](https://github.com/oliveira-michel/Jhulis/issues) em caso de bugs.
