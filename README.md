@@ -282,6 +282,11 @@ Parâmetros:
 * `NonObligatoryErrorProperties: details,fields.name,fields.message,fields.value,fields.detail` define os campos permitidos em uma resposta de erro, mas não obrigatórios. Substitui o {0} na descrição.
 * `ObligatoryErrorProperties: code,message` define os campos obrigatório em uma resposta de erro. Substitui o {0} na descrição.
 
+#### HealthCheck
+Adicione um Health Check na sua API.
+
+<sup>*A utilização de um endpoint de Health Check é uma boa prática para permitir que o cliente ou sistemas de monitoramento verifiquem a disponibilidade da sua API.*</sup>
+
 #### Http200WithoutPagination
 Respostas do tipo HTTP 200 que representem coleções podem ser paginadas.
 
@@ -464,11 +469,6 @@ Parâmetros:
 * `Example: v2` define um exemplo que entra na descrição. Substitui o {1} na descrição.
 * `HumanReadeableFormat: 'v' + integer version number` define a explicação do formato que entra na descrição. Substitui o {0} na descrição.
 * `RegexExpectedFormat: ^(v\d+)$` define a expressão regular que testa o padrão esperado para os Path Parameters.
-
-#### HealthCheck
-Adicione um Health Check na sua API.
-
-<sup>*A utilização de Health Check é uma boa prática no desenvolvimento de API para auxílio na monitoração.*</sup>
 
 # Contribua
 
