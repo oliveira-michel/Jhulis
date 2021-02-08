@@ -18,6 +18,7 @@
         public StringCouldBeNumberConfig StringCouldBeNumber { get; set; }
         public ValidResponseCodesConfig ValidResponseCodes { get; set; }
         public VersionFormatConfig VersionFormat { get; set; }
+        public HealthCheckConfig HealthCheck { get; set; }
     }
 
     public class ContentEnvelopeConfig
@@ -117,5 +118,10 @@
         public string RegexExpectedFormat { get; set; }
         public string HumanReadeableFormat { get; set; }
         public string Example { get; set; }
+    }
+
+    public class HealthCheckConfig
+    {
+        public string Regex { get; set; }
     }
 }

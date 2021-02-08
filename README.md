@@ -282,6 +282,11 @@ Parâmetros:
 * `NonObligatoryErrorProperties: details,fields.name,fields.message,fields.value,fields.detail` define os campos permitidos em uma resposta de erro, mas não obrigatórios. Substitui o {0} na descrição.
 * `ObligatoryErrorProperties: code,message` define os campos obrigatório em uma resposta de erro. Substitui o {0} na descrição.
 
+#### HealthCheck
+Adicione um Health Check na sua API.
+
+<sup>*A utilização de um endpoint de Health Check é uma boa prática para permitir que o cliente ou sistemas de monitoramento verifiquem a disponibilidade da sua API.*</sup>
+
 #### Http200WithoutPagination
 Respostas do tipo HTTP 200 que representem coleções podem ser paginadas.
 
