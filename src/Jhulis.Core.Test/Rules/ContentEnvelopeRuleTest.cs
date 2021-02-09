@@ -52,9 +52,9 @@ namespace Safra.Gsa.QaSwagger.Test.Rules
         {
             List<ResultItem> results = new ContentEnvelopeRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal(2, results.Count);
+            Assert.Equal(1, results.Count);
 
-            Assert.Equal("Path='/path-four',Operation='get',ResponseCode='200'", results[1].Value);
+            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='200'", results[0].Value);
 
             Assert.True(new ContentEnvelopeRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

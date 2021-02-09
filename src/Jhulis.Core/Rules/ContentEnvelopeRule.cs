@@ -15,6 +15,7 @@ namespace Jhulis.Core.Rules
         /// <summary>
         /// Validates if successful response codes (2xx and 3xx) contains valid envelope to separate the resource content from metadatas as pagination or messages.
         /// The 204 used for empty responses is escaped in this rule.
+        /// The 200 with empty response is escaped in this rule.
         /// Supressions: Rule,Path,Operation,ResponseCode
         /// </summary>
         public ContentEnvelopeRule(OpenApiDocument contract,
@@ -35,6 +36,7 @@ namespace Jhulis.Core.Rules
 
                 //GET e POST são mais prováveis de ter payload.
                 //DELETE, PUT e PATCH são fortes candidatos a não terem payload
+                //4xx e 5xx não têm envelope data
                 //204, 201 e 3xx são fortes candidatos a não terem payload
                 //200 e 206 são fortes candidatos a terem payload
                 if (
@@ -49,11 +51,11 @@ namespace Jhulis.Core.Rules
 
         private bool MissingEnvelopeProperty(OpenApiResponse response)
         {
-            return response.Content.Count(
+            return response.Content.Any(
                        content =>
                            content.Value.Schema != null &&
-                           content.Value.Schema.Properties.ContainsKey(contentEnvelopeName)
-                   ) == 0;
+                           !content.Value.Schema.Properties.ContainsKey(contentEnvelopeName)
+                   );
         }
     }
 }
