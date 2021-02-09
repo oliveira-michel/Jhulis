@@ -47,14 +47,13 @@ namespace Jhulis.Core.Rules
                 foreach (string pathSegment in pathSplited)
                 {
                     if (pathSegment.Contains("{") || string.IsNullOrEmpty(pathSegment)) continue;
-
-                    foreach (string word in pathSegment.SplitCompositeWord())
+                    if (healthCheckRegex.IsMatch(pathSegment))
                     {
                         if (healthCheckRegex.IsMatch(word))
                         {
                             return true;
                         }
-                    }
+
                 }
             }
 
