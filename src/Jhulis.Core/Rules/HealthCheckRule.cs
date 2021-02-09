@@ -49,11 +49,8 @@ namespace Jhulis.Core.Rules
                     if (pathSegment.Contains("{") || string.IsNullOrEmpty(pathSegment)) continue;
                     if (healthCheckRegex.IsMatch(pathSegment))
                     {
-                        if (healthCheckRegex.IsMatch(word))
-                        {
-                            return true;
-                        }
-
+                        return true;
+                    }
                 }
             }
 
