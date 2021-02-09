@@ -10,7 +10,7 @@ using Jhulis.Core;
 using Jhulis.Core.Rules;
 using Jhulis.Core.Resources;
 
-namespace Safra.Gsa.QaSwagger.Test.Rules
+namespace Jhulis.Core.Test.Rules
 {
     public class Empty200RuleTest
     {

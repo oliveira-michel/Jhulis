@@ -10,7 +10,7 @@ using Jhulis.Core.Rules;
 using Jhulis.Core.Resources;
 using Jhulis.Core.Resources;
 
-namespace Safra.Gsa.QaSwagger.Test.Rules
+namespace Jhulis.Core.Test.Rules
 {
     public class DateWithoutFormatRuleTest
     {

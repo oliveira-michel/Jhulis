@@ -2,7 +2,7 @@
 using Xunit;
 using Jhulis.Core.Helpers.Extensions;
 
-namespace Safra.Gsa.QaSwagger.Test
+namespace Jhulis.Core.Test
 {
     public class StringExtensions
     {
