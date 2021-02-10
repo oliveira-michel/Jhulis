@@ -19,6 +19,12 @@
         public ValidResponseCodesConfig ValidResponseCodes { get; set; }
         public VersionFormatConfig VersionFormat { get; set; }
         public HealthCheckConfig HealthCheck { get; set; }
+        public ArrayOnNoResourceIdEndpointConfig ArrayOnNoResourceIdEndpoint { get; set; }
+    }
+
+    public class ArrayOnNoResourceIdEndpointConfig
+    {
+        public string Example { get; set; }
     }
 
     public class ContentEnvelopeConfig

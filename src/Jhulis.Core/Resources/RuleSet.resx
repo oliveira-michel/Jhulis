@@ -414,4 +414,13 @@
   <data name="VersionFormat.Details" xml:space="preserve">
     <value>Regex do formato: {0}.</value>
   </data>
+  <data name="ArrayOnNoResourceIdEndpoint.Description" xml:space="preserve">
+    <value>Endpoints que representação coleções (não terminam em /{*id*} e são plurais) devem ter array daquele recurso como resposta.</value>
+  </data>
+  <data name="ArrayOnNoResourceIdEndpoint.Details" xml:space="preserve">
+    <value>Garanta que a resposta do endpoint está como array dentro do envelope padrão. Ex: {0}</value>
+  </data>
+  <data name="ArrayOnNoResourceIdEndpoint.Name" xml:space="preserve">
+    <value>ArrayOnNoResourceIdEndpoint</value>
+  </data>
 </root>

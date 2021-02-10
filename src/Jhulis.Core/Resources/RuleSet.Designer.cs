@@ -61,6 +61,33 @@ namespace Jhulis.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Endpoints que representação coleções (não terminam em /{*id*} e são plurais) devem ter array daquele recurso como resposta..
+        /// </summary>
+        public static string ArrayOnNoResourceIdEndpoint_Description {
+            get {
+                return ResourceManager.GetString("ArrayOnNoResourceIdEndpoint.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Garanta que a resposta do endpoint está como array dentro do envelope padrão. Ex: {0}.
+        /// </summary>
+        public static string ArrayOnNoResourceIdEndpoint_Details {
+            get {
+                return ResourceManager.GetString("ArrayOnNoResourceIdEndpoint.Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ArrayOnNoResourceIdEndpoint.
+        /// </summary>
+        public static string ArrayOnNoResourceIdEndpoint_Name {
+            get {
+                return ResourceManager.GetString("ArrayOnNoResourceIdEndpoint.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deve ser definida uma URL base válida..
         /// </summary>
         public static string BaseUrl_Description {
