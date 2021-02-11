@@ -423,4 +423,13 @@
   <data name="ArrayOnNoResourceIdEndpoint.Name" xml:space="preserve">
     <value>ArrayOnNoResourceIdEndpoint</value>
   </data>
+  <data name="Prepositions.Description" xml:space="preserve">
+    <value>Não utilize preposições nos nomes dos paths, parâmetros e propriedades do contrato.</value>
+  </data>
+  <data name="Prepositions.Details" xml:space="preserve">
+    <value>Ex: {0}.</value>
+  </data>
+  <data name="Prepositions.Name" xml:space="preserve">
+    <value>Prepositions</value>
+  </data>
 </root>

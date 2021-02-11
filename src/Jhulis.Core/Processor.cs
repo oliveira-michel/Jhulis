@@ -69,6 +69,7 @@ namespace Jhulis.Core
             
             //Hints
             analisysResult.ResultItens.TryAddEmptiableRange(new PropertyStartingWithTypeRule(openApiContract, supressions, ruleSettings, cache).Execute());
+            analisysResult.ResultItens.TryAddEmptiableRange(new PrepositionsRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new PropertyNamingMatchingPathRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new StringCouldBeNumberRule(openApiContract, supressions, ruleSettings, cache).Execute());
             analisysResult.ResultItens.TryAddEmptiableRange(new DateWithoutFormatRule(openApiContract, supressions, ruleSettings, cache).Execute());

@@ -20,6 +20,7 @@
         public VersionFormatConfig VersionFormat { get; set; }
         public HealthCheckConfig HealthCheck { get; set; }
         public ArrayOnNoResourceIdEndpointConfig ArrayOnNoResourceIdEndpoint { get; set; }
+        public PrepositionsConfig Prepositions { get; set; }
     }
 
     public class ArrayOnNoResourceIdEndpointConfig
@@ -104,7 +105,13 @@
         public bool CaseTypeTolerateNumber { get; set; }
         public string Example { get; set; }
     }
-    
+
+    public class PrepositionsConfig
+    {
+        public string WordsToAvoid { get; set; }
+        public string Example { get; set; }
+    }
+
     public class PropertyStartingWithTypeConfig
     {
         public string WordsToAvoid { get; set; } 

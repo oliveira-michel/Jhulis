@@ -790,6 +790,33 @@ namespace Jhulis.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Não utilize preposições nos nomes dos paths, parâmetros e propriedades do contrato..
+        /// </summary>
+        public static string Prepositions_Description {
+            get {
+                return ResourceManager.GetString("Prepositions.Description", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ex: {0}..
+        /// </summary>
+        public static string Prepositions_Details {
+            get {
+                return ResourceManager.GetString("Prepositions.Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prepositions.
+        /// </summary>
+        public static string Prepositions_Name {
+            get {
+                return ResourceManager.GetString("Prepositions.Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nas propriedades, utilizar notação {0}. Ex: {1}..
         /// </summary>
         public static string PropertyCase_Description {
