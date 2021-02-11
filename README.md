@@ -217,6 +217,16 @@ As regras abaixo foram codificadas para validar falhas frequentes na definição
 
 Os valores dos parâmetros são definidos no appsettings.json do projeto Jhulis.Rest.
 
+ 
+#### ArrayOnNoResourceIdEndpoint
+
+Endpoints que representação coleções (não terminam em /{*id*} e são plurais) devem ter array daquele recurso como resposta.
+
+<sup>*Garanta que a resposta do endpoint está como array dentro do envelope padrão. Ex: {0}*</sup>
+
+Parâmetros: 
+* `Example: "data": [ { object 1 }, { object n } ]` define um exemplo que entra na descrição. Substitui o {0} no detalhes.
+
 #### BaseUrl
 
 Deve ser definida uma URL base válida.
@@ -402,6 +412,17 @@ Paths não devem conter nomes representando ações de CRUD.
 Parâmetros:
 
 * `WordsToAvoid: get,consultar,recuperar,listar,ler,obter,post,salvar,gravar,enviar,postar,path,atualizar,delete,apagar,deletar,remover,excluir` define palavras que são proibidas de usar nos Paths.
+
+#### Prepositions
+
+Não utilize preposições nos nomes dos paths, parâmetros e propriedades do contrato.
+
+<sup>*Ex: {0}.*</sup>
+
+Parâmetros:
+
+* `WordsToAvoid: a,à,as,às,ao,aos,ante,aonde,apos,aquilo,com,contra,da,de,desde,dessa,dessas,desse,desses,desta,destas,deste,destes,disto,do,duma,e,em,entre,na,nas,no,nos,num,numa,numas,nuns,nessa,naquilo,nessas,nesse,nesses,nesta,nestas,neste,nestes,nisso,nisto,o,para,perante,pela,pelas,pelo,pelos,por,pra,pras,sem,sob,sobre,tras,trás` define palavras que são proibidas de usar nos nomes de paths, parâmetros e propriedades.
+* `Example: cartao-credito ao invés de cartao-de-credito, telefoneContato ao invés de telefoneParaContato` define um exemplo que entra no detalhes. Substitui o {0} no detalhes.
 
 #### PropertyCase
 
