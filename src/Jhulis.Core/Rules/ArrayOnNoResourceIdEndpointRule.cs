@@ -28,7 +28,7 @@ namespace Jhulis.Core.Rules
         {
             foreach (OpenApiDocumentExtensions.Response response in Contract.GetAllResponses(Cache))
             {
-                if (Supressions.IsSupressed(ruleName, response.Path, response.Operation, string.Empty, response.Name))
+                if (Supressions.IsSupressed(ruleName, response.Path, response.Method, string.Empty, response.Name))
                     continue;
 
                 string[] pathSplited =
@@ -53,14 +53,13 @@ namespace Jhulis.Core.Rules
 
                     if (hasLastPathSegmentFinishingWithS)
                     {
-                        //(new System.Collections.Generic.IDictionaryDebugView<string, Microsoft.OpenApi.Models.OpenApiSchema>((new System.Collections.Generic.IDictionaryDebugView<string, Microsoft.OpenApi.Models.OpenApiMediaType>(response.OpenApiResponseObject?.Content).Items[0]).Value.Schema.Properties).Items[0]).Key
                         foreach (var content in response.OpenApiResponseObject?.Content)
                         {
                             if (content.Value?.Schema?.Properties?.ContainsKey("data") == true)
                             {
                                 var dataProperty = content.Value.Schema.Properties["data"];
                                 if (dataProperty.Type.ToLower() != "array")
-                                    listResult.Add(new ResultItem(this) { Value = $"Path='{response.Path}',Operation='{response.Operation}',ResponseCode='{response.Name}'" });
+                                    listResult.Add(new ResultItem(this, response.ResultLocation()));
                             }
                         }
                     }

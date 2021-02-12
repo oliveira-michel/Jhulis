@@ -14,7 +14,7 @@ namespace Jhulis.Core.Exceptions
         private static string FormattedError(IList<OpenApiError> errors)
         {
             var sb = new StringBuilder();
-            sb.Append("An error has ocurred during the Open API document parsing. Please, check if the document structure is valid using some visual parser as https://editor.swagger.io. ");
+            sb.Append("An error has ocurred during the Open API document parsing. Please, check if the document structure is valid. ");
             sb.AppendLine("Details:");
 
             foreach (OpenApiError error in errors)

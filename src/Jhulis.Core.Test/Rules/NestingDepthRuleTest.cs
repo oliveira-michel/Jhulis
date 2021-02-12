@@ -54,7 +54,7 @@ namespace Jhulis.Core.Test.Rules
 
             Assert.Equal(1, results.Count);
 
-            Assert.Equal("Path='/path-one',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.level1b.level2.level3.level4.level5',Property='level5'", results[0].Value);
+            Assert.Equal("path:/path-one,method:get,response:200,content:application/json,response.property:data.level1b.level2.level3.level4.level5", results[0].Value);
 
             Assert.True(new NestingDepthRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

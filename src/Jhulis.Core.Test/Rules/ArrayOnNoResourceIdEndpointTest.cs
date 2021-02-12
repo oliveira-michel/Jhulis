@@ -55,7 +55,7 @@ namespace Jhulis.Core.Test.Rules
 
             Assert.Equal(1, results.Count);
 
-            Assert.Equal("Path='/paths-seven',Operation='get',ResponseCode='200'", results[0].Value);
+            Assert.Equal("path:/paths-seven,method:get,response:200", results[0].Value);
 
             Assert.True(new ArrayOnNoResourceIdEndpointRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

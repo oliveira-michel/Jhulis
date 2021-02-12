@@ -27,56 +27,42 @@ namespace Jhulis.Core.Rules
 
         private protected override void ExecuteRuleLogic()
         {
+
+            var parameters = Contract.GetAllParameters();
+
             //Search for parameters in query, path or header with examples that value is likelihood date and the format attribute is not date or date-time.
-            foreach (KeyValuePair<string, OpenApiPathItem> path in Contract.Paths)
+            foreach (OpenApiDocumentExtensions.Parameter parameter in parameters)
             {
-                if (Supressions.IsSupressed(ruleName, path.Key))
+                if (Supressions.IsSupressed(ruleName, parameter.Path))
                     continue;
 
-                foreach (KeyValuePair<OperationType, OpenApiOperation> operation in path.Value.Operations)
+                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Method))
+                    continue;
+
+                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Method, parameter.Name))
+                    continue;
+
+                //Parameters in query, path or header
+                if (parameter.OpenApiParameter.Example != null && parameter.OpenApiParameter.Examples?.Count > 0 &&
+                    parameter.OpenApiParameter.Schema.Type.ToLower() == "string")
                 {
-                    if (Supressions.IsSupressed(ruleName, path.Key, operation.Key.ToString().ToLowerInvariant()))
-                        continue;
-
-                    //Parameters in query, path or header
-                    foreach (OpenApiParameter parameter in operation.Value.Parameters)
+                    if (parameter.OpenApiParameter.Example is OpenApiString exApiString &&
+                        DateTime.TryParse(exApiString.Value, out _) &&
+                        parameter.OpenApiParameter.Schema.Format != "date" &&
+                        parameter.OpenApiParameter.Schema.Format != "date-time")
                     {
-                        if (Supressions.IsSupressed(ruleName, path.Key, operation.Key.ToString().ToLowerInvariant(),
-                            parameter.Name))
-                            continue;
+                        listResult.Add(new ResultItem(this) { Value = parameter.ResultLocation() });
+                    }
 
-                        if (parameter.Example != null && parameter.Examples?.Count > 0 &&
-                            parameter.Schema.Type.ToLower() == "string")
+                    foreach (KeyValuePair<string, OpenApiExample> example in parameter.OpenApiParameter.Examples)
+                    {
+                        if (parameter.OpenApiParameter.Schema.Type.ToLower() == "string" &&
+                            example.Value.Value is OpenApiString apiString &&
+                            DateTime.TryParse(apiString.Value, out _) &&
+                            parameter.OpenApiParameter.Schema.Format != "date" &&
+                            parameter.OpenApiParameter.Schema.Format != "date-time")
                         {
-                            if (parameter.Example is OpenApiString exApiString &&
-                                DateTime.TryParse(exApiString.Value, out _) &&
-                                parameter.Schema.Format != "date" &&
-                                parameter.Schema.Format != "date-time")
-                            {
-                                listResult.Add(
-                                    new ResultItem(this)
-                                    {
-                                        Value =
-                                            $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}',Parameter='{parameter.Name}'"
-                                    });
-                            }
-
-                            foreach (KeyValuePair<string, OpenApiExample> example in parameter.Examples)
-                            {
-                                if (parameter.Schema.Type.ToLower() == "string" &&
-                                    example.Value.Value is OpenApiString apiString &&
-                                    DateTime.TryParse(apiString.Value, out _) &&
-                                    parameter.Schema.Format != "date" &&
-                                    parameter.Schema.Format != "date-time")
-                                {
-                                    listResult.Add(
-                                        new ResultItem(this)
-                                        {
-                                            Value =
-                                                $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}',Parameter='{parameter.Name}'"
-                                        });
-                                }
-                            }
+                            listResult.Add(new ResultItem(this) { Value = parameter.ResultLocation() });
                         }
                     }
                 }
@@ -101,12 +87,7 @@ namespace Jhulis.Core.Rules
                     property.ResponseCode))
                     continue;
 
-                listResult.Add(
-                    new ResultItem(this)
-                    {
-                        Value =
-                            $"Path='{property.Path}',Operation='{property.Operation.ToLowerInvariant()}',Parameter='{property.Name}'"
-                    });
+                listResult.Add(new ResultItem(this) { Value = property.ResultLocation() });
             }
         }
     }

@@ -28,12 +28,12 @@ namespace Jhulis.Core.Rules
         {
             IEnumerable<IGrouping<string, OpenApiDocumentExtensions.Response>> responsesByPath = Contract
                 .GetAllResponses(cache).GroupBy(
-                    resp => resp.Path + "|" + resp.Operation,
+                    resp => resp.Path + "|" + resp.Method,
                     resp => resp);
 
             foreach (IGrouping<string, OpenApiDocumentExtensions.Response> responses in responsesByPath)
             {
-                if (Supressions.IsSupressed(ruleName, responses.First().Path, responses.First().Operation, string.Empty,
+                if (Supressions.IsSupressed(ruleName, responses.First().Path, responses.First().Method, string.Empty,
                     responses.First().Name)) continue;
 
                 if (
@@ -43,7 +43,7 @@ namespace Jhulis.Core.Rules
                 )
                     listResult.Add(
                         new ResultItem(this)
-                            {Value = $"Path='{responses.First().Path}',Operation='{responses.First().Operation}'"});
+                            {Value = $"Path='{responses.First().Path}',Operation='{responses.First().Method}'"});
             }
         }
     }

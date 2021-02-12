@@ -31,7 +31,7 @@ namespace Jhulis.Core.Rules
         {
             foreach (OpenApiDocumentExtensions.Response response in Contract.GetAllResponses(Cache))
             {
-                if (Supressions.IsSupressed(ruleName, response.Path, response.Operation, string.Empty, response.Name))
+                if (Supressions.IsSupressed(ruleName, response.Path, response.Method, string.Empty, response.Name))
                     continue;
 
                 //GET e POST são mais prováveis de ter payload.
@@ -40,12 +40,12 @@ namespace Jhulis.Core.Rules
                 //204, 201 e 3xx são fortes candidatos a não terem payload
                 //200 e 206 são fortes candidatos a terem payload
                 if (
-                       (response.Operation == "get" || response.Operation == "post")
+                       (response.Method == "get" || response.Method == "post")
                     && (response.Name == "200" || response.Name == "206")
                     && MissingEnvelopeProperty(response.OpenApiResponseObject))
                     listResult.Add(
                         new ResultItem(this)
-                            {Value = response.ToString()});
+                            {Value = response.ResultLocation()});
             }
         }
 

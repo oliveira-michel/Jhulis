@@ -48,7 +48,7 @@ namespace Jhulis.Core.Rules
                             Description = Description
                                 .Replace("{0}", caseType.GetEnumDescription())
                                 .Replace("{1}", example),
-                            Value = property.ToString()
+                            Value = property.ResultLocation()
                         });
             }
         }

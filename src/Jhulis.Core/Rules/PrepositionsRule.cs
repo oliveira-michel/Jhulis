@@ -62,7 +62,7 @@ namespace Jhulis.Core.Rules
 
             foreach (OpenApiDocumentExtensions.Parameter parameter in Contract.GetAllParameters())
             {
-                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Operation, parameter.Name)) continue;
+                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Method, parameter.Name)) continue;
 
                 if (
                     parameter.Name.SplitCompositeWord()
@@ -73,7 +73,7 @@ namespace Jhulis.Core.Rules
                         new ResultItem(this)
                         {
                             Value =
-                                $"Path='{parameter.Path}',Operation='{parameter.Operation}',Parameter='{parameter.Name}'"
+                                $"Path='{parameter.Path}',Operation='{parameter.Method}',Parameter='{parameter.Name}'"
                         });
                 }
             }

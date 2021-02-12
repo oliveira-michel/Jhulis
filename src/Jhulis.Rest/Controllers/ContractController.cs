@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Jhulis.Adapters;
+using Microsoft.OpenApi.Readers.Exceptions;
 
 namespace Jhulis.Rest.Controllers
 {
@@ -41,37 +42,10 @@ namespace Jhulis.Rest.Controllers
         {
             if (request == null || request.Content == null)
             {
-                //TODO Criar um lançamento de exception 400 como o de baixo
+                //TODO Criar um lançamento de result com erro
             }
 
-            Result result;
-
-            try
-            {
-                result = new Processor(ruleSettings).Validate(request.Content, request.Supressions.ToSupressions());
-            }
-            catch (InvalidOpenApiDocumentException e)
-            {
-                //TODO Criar este lançamento de exception
-                //ValidationException.Throw("rest-400");
-
-                //TODO precisa evoluir o "error-code" para poder passar parâmetros {0}
-                //Isto é tático
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                result = new Result
-                {
-                    ResultItens = new List<ResultItem>
-                    {
-                        new ResultItem
-                        {
-                            Description = "O contrato não é um Open API Specification válido.",
-                            Details = e.Message,
-                            Rule = "GenericError",
-                            Severity = Severity.Error
-                        }
-                    }
-                };
-            }
+            Result result = new Processor(ruleSettings).Validate(request.Content, request.Supressions.ToSupressions());
 
             if (HttpContext.Request.Headers.ContainsKey("Accept")
                 && HttpContext.Request.Headers["Accept"] == "text/plain")
@@ -87,33 +61,11 @@ namespace Jhulis.Rest.Controllers
         {
             Result result;
 
-            try
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
-                using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
-                {
-                    string contract = await reader.ReadToEndAsync().ConfigureAwait(false);
+                string contract = await reader.ReadToEndAsync().ConfigureAwait(false);
 
-                    result = new Processor(ruleSettings).Validate(contract);
-                }
-            }
-            catch (InvalidOpenApiDocumentException e)
-            {
-                //TODO precisa evoluir o "error-code" para poder passar parâmetros {0}
-                //Isto é tático
-                Response.StatusCode = StatusCodes.Status400BadRequest;
-                result = new Result
-                {
-                    ResultItens = new List<ResultItem>
-                    {
-                        new ResultItem
-                        {
-                            Description = "O contrato não é um Open API Specification válido.",
-                            Details = e.Message,
-                            Rule = "GenericError",
-                            Severity = Severity.Error
-                        }
-                    }
-                };
+                result = new Processor(ruleSettings).Validate(contract);
             }
 
             if (HttpContext.Request.Headers.ContainsKey("Accept")
