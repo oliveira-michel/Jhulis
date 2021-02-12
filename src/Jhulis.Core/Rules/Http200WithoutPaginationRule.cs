@@ -44,11 +44,7 @@ namespace Jhulis.Core.Rules
 
                 if (responses.All(resp => resp.FullName != paginationEnvelopeName))
                     listResult.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{responses.First().Path}'"
-                        });
+                        new ResultItem(this, path: responses.First().Path));
             }
         }
     }

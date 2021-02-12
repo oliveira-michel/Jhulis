@@ -60,26 +60,24 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new DescriptionRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Info.Description=''", results[0].Value);
+            Assert.Equal("info.description:", results[0].Value);
 
-            Assert.Equal("Path='/path-one'", results[1].Value);
+            Assert.Equal("path:/path-one", results[1].Value);
 
-            Assert.Equal("Path='/path-one',Operation='get'", results[2].Value);
+            Assert.Equal("path:/path-one,method:get", results[2].Value);
 
-            Assert.Equal("Path='/path-two'", results[3].Value);
+            Assert.Equal("path:/path-two", results[3].Value);
 
-            Assert.Equal("Path='/path-two',Operation='get'", results[4].Value);
+            Assert.Equal("path:/path-two,method:get", results[4].Value);
 
+            Assert.Equal("path:/path-two,query-paramter:parameterOne,method:get", results[5].Value);
+            
             Assert.Equal(
-                "Path='/path-two',Operation='get',Parameter='parameterOne',Value='too short'",
-                results[5].Value);
-
-            Assert.Equal(
-                "Path='/path-two',Operation='get',Response='200',Description='Status 200'",
+                "path:/path-two,method:get,response:200",
                 results[6].Value);
             
             Assert.Equal(
-                "Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.propertyOne','PropertyDescription=''",
+                "path:/path-two,method:get,response:200,content:application/json,response.property:data.propertyOne",
                 results[7].Value);
 
             Assert.True(new DescriptionRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

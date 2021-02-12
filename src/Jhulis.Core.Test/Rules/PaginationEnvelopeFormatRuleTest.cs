@@ -62,7 +62,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new PaginationEnvelopeFormatRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='pagination.propertyOne'", results[0].Value);
+            Assert.Equal("path:/path-two,method:get,response:200,content:application/json,response.property:pagination.propertyOne", results[0].Value);
             
 
             Assert.True(new PaginationEnvelopeFormatRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()

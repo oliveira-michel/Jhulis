@@ -42,7 +42,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new OperationSuccessResponseRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two',Operation='get'", results[0].Value);
+            Assert.Equal("path:/path-two,method:get", results[0].Value);
 
             Assert.True(new OperationSuccessResponseRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
                             .Count == 0);

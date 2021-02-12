@@ -44,7 +44,7 @@ namespace Jhulis.Core.Rules
                         if (wordsToAvoid.Contains(word.ToLowerInvariant()))
                         {
                             listResult.Add(
-                                new ResultItem(this) {Value = $"Path='{path.Key}',PathSegment='{pathSegment}'"});
+                                new ResultItem(this, path: path.Key, pathSegment: pathSegment));
                         }
                     }
                 }

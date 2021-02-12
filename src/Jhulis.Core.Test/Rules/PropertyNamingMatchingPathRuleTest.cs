@@ -58,7 +58,7 @@ namespace Jhulis.Core.Test.Rules
                 new PropertyNamingMatchingPathRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
             Assert.Equal(
-                "Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.addressPathTwo',Property='addressPathTwo'",
+                "path:/path-two,method:get,response:200,content:application/json,response.property:data.addressPathTwo",
                 results[0].Value);
 
             Assert.True(new PropertyNamingMatchingPathRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()

@@ -27,7 +27,7 @@ namespace Jhulis.Core.Rules
                 if (server.Url.Split("//").Length > 2)
                     listResult.Add(new ResultItem(this)
                     {
-                        Value = $"Server.Url='{server.Url}'"
+                        Value = $"server.url:{server.Url}"
                     });
             }
 
@@ -36,10 +36,7 @@ namespace Jhulis.Core.Rules
                 if (Supressions.IsSupressed(ruleName, path.Key)) continue;
                 
                 if (path.Key.Contains("//"))
-                    listResult.Add(new ResultItem(this)
-                    {
-                        Value = $"Path='{path.Key}'"
-                    });
+                    listResult.Add(new ResultItem(this, path:path.Key));
             }
         }
     }

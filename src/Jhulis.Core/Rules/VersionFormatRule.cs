@@ -33,7 +33,7 @@ namespace Jhulis.Core.Rules
                 listResult.Add(
                     new ResultItem(this)
                     {
-                        Value = $"Info.Version = '{Contract.Info.Version}'",
+                        Value = $"info.version:{Contract.Info.Version}",
                         Description = Description
                             .Replace("{0}", humanReadeableFormat)
                             .Replace("{1}", example),

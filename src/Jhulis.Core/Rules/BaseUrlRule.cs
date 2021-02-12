@@ -28,12 +28,11 @@ namespace Jhulis.Core.Rules
                 bool validUri = Uri.TryCreate(server.Url, UriKind.Absolute, out Uri uriResult)
                                 && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
                 if (!validUri)
-                    listResult.Add(new ResultItem(this) { Value = $"Url='{uriResult}'" });
+                    listResult.Add(new ResultItem(this, $"servers.url:{uriResult}"));
             }
 
             if (Contract.Servers.Count == 0)
-                listResult.Add(
-                    new ResultItem(this) { Value = "" });
+                listResult.Add(new ResultItem(this));
         }
     }
 }

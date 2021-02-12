@@ -34,7 +34,7 @@ namespace Jhulis.Core.Rules
 
                 if (pathSplited.Length > 1 && pathSplited[0].Contains("{")) //first segment cannot be an parameter.
                     listResult.Add(
-                        new ResultItem(this) {Value = $"Path='{path.Key}',PathSegment='{pathSplited[0]}'"});
+                        new ResultItem(this, path:path.Key));
 
                 for (var i = 0; i < pathSplited.Length - 1; i++) //go until the penultimate
                 {
@@ -43,7 +43,7 @@ namespace Jhulis.Core.Rules
                     if (!(actualIsParameter ^ nextIsParameter)
                     ) //cannot have two non-parameters or two parameters path segments together
                         listResult.Add(
-                            new ResultItem(this) {Value = $"Path='{path.Key}',PathSegment='{pathSplited[0]}'"});
+                            new ResultItem(this, path:path.Key, pathSegment: pathSplited[0]));
                 }
             }
         }

@@ -60,10 +60,10 @@ namespace Jhulis.Core.Test.Rules
 
             Assert.Equal(4, results.Count);
 
-            Assert.Equal("Path='/meios-de-pagamento'", results[0].Value);
-            Assert.Equal("Path='/path-fours/{idAlgoDeDepois}',Operation='get',Parameter='idAlgoDeDepois'", results[1].Value);
-            Assert.Equal("Path='/path-fives',Operation='get',Parameter='nomeDaEmpresa'", results[2].Value);
-            Assert.Equal("Path='/paths-six',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.cadastroAsEscuras',Property='cadastroAsEscuras'", results[3].Value);
+            Assert.Equal("path:/meios-de-pagamento", results[0].Value);
+            Assert.Equal("path:/path-fours/{idAlgoDeDepois},path-parameter:idAlgoDeDepois", results[1].Value);
+            Assert.Equal("path:/path-fives,query-paramter:nomeDaEmpresa,method:get", results[2].Value);
+            Assert.Equal("path:/paths-six,method:get,response:200,content:application/json,response.property:data.cadastroAsEscuras", results[3].Value);
 
             Assert.True(new PrepositionsRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

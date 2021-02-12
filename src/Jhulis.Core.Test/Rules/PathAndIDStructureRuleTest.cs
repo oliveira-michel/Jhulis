@@ -42,7 +42,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new PathAndIdStructureRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two/sub-path',PathSegment='path-two'", results[0].Value);
+            Assert.Equal("path:/path-two/sub-path,path-segment:path-two", results[0].Value);
 
             Assert.True(new PathAndIdStructureRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count ==
                         0);

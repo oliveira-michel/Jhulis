@@ -56,8 +56,7 @@ namespace Jhulis.Core.Rules
                             Details = Details
                                 .Replace("{0}", messagesEnvelopePropertyName)
                                 .Replace("{1}", string.Join(", ", propertiesInMessages)),
-                            Value =
-                                $"Path='{properties.First().Path}',Operation='{properties.First().Operation}',ResponseCode='{properties.First().ResponseCode}'"
+                            Value = ResultItem.FormatValue(path:properties.First().Path, method:properties.First().Operation,response:properties.First().ResponseCode)
                         });
                     break;
                 }

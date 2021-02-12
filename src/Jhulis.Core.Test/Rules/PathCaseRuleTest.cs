@@ -54,8 +54,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new PathCaseRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal(
-                "Path='/pathTwo',PathSegment='pathTwo'",
+            Assert.Equal("path:/pathTwo,path-segment:pathTwo",
                 results[0].Value);
 
             Assert.True(new PathCaseRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

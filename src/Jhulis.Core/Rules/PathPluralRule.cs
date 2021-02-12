@@ -48,7 +48,7 @@ namespace Jhulis.Core.Rules
 
                     if (!hasOneWordFinishingWithS)
                         listResult.Add(
-                            new ResultItem(this) {Value = $"Path='{path.Key}',PathSegment='{pathSegment}'"});
+                            new ResultItem(this, path:path.Key, pathSegment: pathSegment));
                 }
             }
         }

@@ -60,9 +60,9 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new ErrorResponseFormatRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-one',Operation='get',ResponseCode='500'", results[0].Value);
+            Assert.Equal("path:/path-one,method:get,response:500", results[0].Value);
 
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='500'", results[1].Value);
+            Assert.Equal("path:/path-two,method:get,response:500", results[1].Value);
 
             Assert.True(new ErrorResponseFormatRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count ==
                         0);

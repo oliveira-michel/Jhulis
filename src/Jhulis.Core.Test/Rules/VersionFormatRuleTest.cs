@@ -50,7 +50,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new VersionFormatRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Info.Version = '1.2.3'", results[0].Value);
+            Assert.Equal("info.version:1.2.3", results[0].Value);
 
             Assert.True(new VersionFormatRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

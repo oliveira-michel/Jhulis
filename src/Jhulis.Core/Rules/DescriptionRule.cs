@@ -41,7 +41,7 @@ namespace Jhulis.Core.Rules
             if (string.IsNullOrEmpty(Contract.Info.Description) ||
                 Contract.Info.Description?.Length < largeDescriptionLength)
                 listResult.Add(
-                    new ResultItem(this) {Value = $"Info.Description='{Contract.Info.Description}'"});
+                    new ResultItem(this) {Value = $"info.description:{Contract.Info.Description}"});
 
             foreach (KeyValuePair<string, OpenApiPathItem> path in Contract.Paths.Where(path => !Supressions.IsSupressed(ruleName, path.Key)))
             {
@@ -53,8 +53,7 @@ namespace Jhulis.Core.Rules
                         path.Value.Description?.Length < midDescriptionLength &&
                         path.Value.Summary?.Length < midDescriptionLength
                     )
-                        listResult.Add(
-                            new ResultItem(this) {Value = $"Path='{path.Key}'"});
+                        listResult.Add(new ResultItem(this, path:path.Key));
                 }
 
                 foreach (KeyValuePair<OperationType, OpenApiOperation> operation in path.Value.Operations)
@@ -70,27 +69,18 @@ namespace Jhulis.Core.Rules
                             ||
                             operation.Value.Description?.Length < midDescriptionLength &&
                             operation.Value.Summary?.Length < midDescriptionLength)
-                            listResult.Add(
-                                new ResultItem(this)
-                                {
-                                    Value =
-                                        $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}'"
-                                });
+                            listResult.Add(new ResultItem(this, path:path.Key, method: operation.Key.ToString().ToLowerInvariant()));
                     }
 
-                    foreach (OpenApiParameter parameter in operation.Value.Parameters)
+                    foreach (var parameter in Contract.GetAllParameters().Where(x=> x.Path == path.Key && x.Method == operation.Key.ToString().ToLowerInvariant()))
                     {
                         if (Supressions.IsSupressed(ruleName, path.Key,
-                            Convert.ToString(operation.Key.ToString().ToLowerInvariant()), parameter.Name)) continue;
+                           Convert.ToString(operation.Key.ToString().ToLowerInvariant()), parameter.Name)) continue;
 
-                        if (string.IsNullOrEmpty(parameter.Description) ||
-                            parameter.Description?.Length < midDescriptionLength)
+                        if (string.IsNullOrEmpty(parameter.OpenApiParameter.Description) ||
+                           parameter.OpenApiParameter.Description?.Length < midDescriptionLength)
                             listResult.Add(
-                                new ResultItem(this)
-                                {
-                                    Value =
-                                        $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}',Parameter='{parameter.Name}',Value='{parameter.Description}'"
-                                });
+                                new ResultItem(this, parameter.ResultLocation()));
                     }
 
                     foreach (KeyValuePair<string, OpenApiResponse> response in operation.Value.Responses)
@@ -103,11 +93,7 @@ namespace Jhulis.Core.Rules
                             response.Value.Description?.Length < midDescriptionLength)
                         {
                             listResult.Add(
-                                new ResultItem(this)
-                                {
-                                    Value =
-                                        $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}',Response='{response.Key}',Description='{response.Value.Description}'"
-                                });
+                                new ResultItem(this, path:path.Key, method: operation.Key.ToString().ToLowerInvariant(), response: response.Key));
                         }
                         
                         foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
@@ -128,6 +114,7 @@ namespace Jhulis.Core.Rules
             }
         }
 
+        //TODO Verificar possibilidade de usar o .GetAllProperties()
         private List<ResultItem> CheckInnerPropertyDescription(
             string path, string operation, string response, string content, string propertiesChain,
             IDictionary<string, OpenApiSchema> properties)
@@ -147,11 +134,7 @@ namespace Jhulis.Core.Rules
                         : propertiesChain + "." + property.Key;
 
                     resultItens.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{path}',Operation='{operation}',ResponseCode='{response}',Content='{content}',PropertyFull='{propertyName}','PropertyDescription='{property.Value.Description}'"
-                        });
+                        new ResultItem(this, path: path, method: operation, response: response, content: content, responseProperty: propertyName));
                 }
 
                 if (property.Value.Properties.Count > 0)

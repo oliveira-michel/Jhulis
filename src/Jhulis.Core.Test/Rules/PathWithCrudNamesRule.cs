@@ -52,7 +52,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new PathWithCrudNamesRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/apagar-path-two',PathSegment='apagar-path-two'", results[0].Value);
+            Assert.Equal("path:/apagar-path-two,path-segment:apagar-path-two", results[0].Value);
 
             Assert.True(new PathWithCrudNamesRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

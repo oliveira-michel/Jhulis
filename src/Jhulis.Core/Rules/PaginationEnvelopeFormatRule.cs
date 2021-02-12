@@ -51,8 +51,7 @@ namespace Jhulis.Core.Rules
                             Details = Details
                                 .Replace("{0}", paginationEnvelopePropertyName)
                                 .Replace("{1}", string.Join(", ", propertiesInPagination)),
-                            Value =
-                                $"Path='{properties.First().Path}',Operation='{properties.First().Operation}',ResponseCode='{properties.First().ResponseCode}',Content='{property.Content}',PropertyFull='{property.FullName}'"
+                            Value = property.ResultLocation()
                         });
                     break;
                 }

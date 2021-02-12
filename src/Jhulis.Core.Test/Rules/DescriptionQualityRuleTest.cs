@@ -47,9 +47,9 @@ namespace Jhulis.Core.Test.Rules
 
             Assert.Equal(2, results.Count);
             
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.propertyOne','PropertyDescription='bad description'", results[0].Value);
+            Assert.Equal("path:/path-two,method:get,response:200,content:application/json,response.property:data.propertyOne", results[0].Value);
             
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.propertyTwo','PropertyDescription='another bad description'", results[1].Value);
+            Assert.Equal("path:/path-two,method:get,response:200,content:application/json,response.property:data.propertyTwo", results[1].Value);
 
             Assert.True(new DescriptionQualityRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

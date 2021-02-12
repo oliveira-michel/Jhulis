@@ -47,7 +47,7 @@ namespace Jhulis.Core.Rules
         {
             foreach (OpenApiDocumentExtensions.Parameter parameter in Contract.GetAllParameters())
             {
-                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Operation, parameter.Name)) continue;
+                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Method, parameter.Name)) continue;
 
                 if (parameter.OpenApiParameter.In != ParameterLocation.Path) continue;
 
@@ -75,8 +75,7 @@ namespace Jhulis.Core.Rules
                                 .Replace("{0}", humanReadeableFormat)
                                 .Replace("{1}", caseType.GetEnumDescription())
                                 .Replace("{2}", example),
-                            Value =
-                                $"Path='{parameter.Path}',Operation='{parameter.Operation}',Parameter='{parameter.Name}'"
+                            Value = parameter.ResultLocation()
                         });
             }
         }

@@ -48,8 +48,7 @@ namespace Jhulis.Core.Rules
                         {
                             Description = Description.Replace("{0}", idPropertyName),
                             Details = Details.Replace("{0}", idPropertyName),
-                            Value =
-                                $"Path='{properties.First().Path}',Operation='{properties.First().Operation}',ResponseCode='{properties.First().ResponseCode}'"
+                            Value = ResultItem.FormatValue(path: properties.First().Path, method: properties.First().Operation, response: properties.First().ResponseCode)
                         });
             }
         }

@@ -43,7 +43,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results = new Empty200Rule(openApiContract, supressions, ruleSettings, cache).Execute();
 
             Assert.Equal(
-                "Path='/path-one',Operation='get'",
+                "path:/path-one,method:get",
                 results[0].Value);
             
             Assert.Equal(results.Count(),1);

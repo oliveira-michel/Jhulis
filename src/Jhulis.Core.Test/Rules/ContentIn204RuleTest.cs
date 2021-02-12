@@ -44,7 +44,7 @@ namespace Jhulis.Core.Test.Rules
         [Fact]
         public void Execute()
         {
-            Assert.Equal("Path='/path-two',Operation='get'",
+            Assert.Equal("path:/path-two,method:get",
                 new ContentIn204Rule(openApiContract, supressions, ruleSettings, cache).Execute().First().Value);
 
             Assert.True(new ContentIn204Rule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

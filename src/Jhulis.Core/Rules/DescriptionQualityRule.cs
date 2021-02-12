@@ -28,7 +28,7 @@ namespace Jhulis.Core.Rules
             if (!string.IsNullOrEmpty(Contract.Info.Description) &&
                 !Contract.Info.Description.BeginsUpperAndFinishesWithPeriod())
                 listResult.Add(
-                    new ResultItem(this) {Value = $"Info.Description='{Contract.Info.Description}'"});
+                    new ResultItem(this, $"info.description:{Contract.Info.Description}"));
 
             foreach (KeyValuePair<string, OpenApiPathItem> path in Contract.Paths.Where(path =>
                 !Supressions.IsSupressed(ruleName, path.Key)))
@@ -41,28 +41,21 @@ namespace Jhulis.Core.Rules
                      !path.Value.Summary.BeginsUpperAndFinishesWithPeriod()
                 )
                     listResult.Add(
-                        new ResultItem(this) {Value = $"Path='{path.Key}'"});
+                        new ResultItem(this, path: path.Key));
+
+                foreach (var parameter in Contract.GetAllParameters().Where(x=> x.Path == path.Key))
+                {
+                    if (Supressions.IsSupressed(ruleName, path.Key, parameter.Method)) continue;
+
+                    if (Supressions.IsSupressed(ruleName, path.Key, parameter.Method, parameter.Name)) continue;
+
+                    if (!string.IsNullOrEmpty(parameter.OpenApiParameter.Description) &&
+                        !parameter.OpenApiParameter.Description.BeginsUpperAndFinishesWithPeriod())
+                        listResult.Add(new ResultItem(this, parameter.ResultLocation()));
+                }
 
                 foreach (KeyValuePair<OperationType, OpenApiOperation> operation in path.Value.Operations)
                 {
-                    if (Supressions.IsSupressed(ruleName, path.Key,
-                        Convert.ToString(operation.Key.ToString().ToLower()))) continue;
-
-                    foreach (OpenApiParameter parameter in operation.Value.Parameters)
-                    {
-                        if (Supressions.IsSupressed(ruleName, path.Key,
-                            Convert.ToString(operation.Key.ToString().ToLowerInvariant()), parameter.Name)) continue;
-
-                        if (!string.IsNullOrEmpty(parameter.Description) &&
-                            !parameter.Description.BeginsUpperAndFinishesWithPeriod())
-                            listResult.Add(
-                                new ResultItem(this)
-                                {
-                                    Value =
-                                        $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}',Parameter='{parameter.Name}',Value='{parameter.Description}'"
-                                });
-                    }
-
                     foreach (KeyValuePair<string, OpenApiResponse> response in operation.Value.Responses)
                     {
                         if (Supressions.IsSupressed(ruleName, path.Key,
@@ -71,17 +64,6 @@ namespace Jhulis.Core.Rules
 
                         //Usually, response description only have the response code and description without punctuation.
                         //Ex: 200 Ok
-                        
-//                        if (!string.IsNullOrEmpty(response.Value.Description) &&
-//                            !response.Value.Description.BeginsUpperAndFinishesWithPeriod())
-//                        {
-//                            listResult.Add(
-//                                new ResultItem(this)
-//                                {
-//                                    Value =
-//                                        $"Path='{path.Key}',Operation='{operation.Key.ToString().ToLowerInvariant()}',Response='{response.Key}',Description='{response.Value.Description}'"
-//                                });
-//                        }
                         
                         foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
                             if (content.Value.Schema != null)
@@ -101,6 +83,7 @@ namespace Jhulis.Core.Rules
             }
         }
 
+        //TODO Verificar possibilidade de usar o .GetAllProperties()
         private List<ResultItem> CheckInnerPropertyDescription(
             string path, string operation, string response, string content, string propertiesChain,
             IDictionary<string, OpenApiSchema> properties)
@@ -120,11 +103,7 @@ namespace Jhulis.Core.Rules
                         : propertiesChain + "." + property.Key;
 
                     resultItens.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{path}',Operation='{operation}',ResponseCode='{response}',Content='{content}',PropertyFull='{propertyName}','PropertyDescription='{property.Value.Description}'"
-                        });
+                        new ResultItem(this, path: path, method: operation, response: response, content: content, responseProperty: propertyName));
                 }
 
                 if (property.Value.Properties.Count > 0)

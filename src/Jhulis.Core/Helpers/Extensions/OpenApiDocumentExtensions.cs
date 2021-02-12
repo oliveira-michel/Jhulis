@@ -24,7 +24,7 @@ namespace Jhulis.Core.Helpers.Extensions
                     new Response
                     {
                         Path = path.Key,
-                        Operation = operation.Key.ToString().ToLowerInvariant(),
+                        Method = operation.Key.ToString().ToLowerInvariant(),
                         Name = response.Key,
                         OpenApiResponseObject = response.Value
                     });
@@ -36,23 +36,22 @@ namespace Jhulis.Core.Helpers.Extensions
 
         public class Response
         {
-            private string operation;
+            private string method;
             public string Path { get; set; }
 
-            public string Operation
+            public string Method
             {
-                get => operation;
-                set => operation = value.ToLowerInvariant();
+                get => method;
+                set => method = value.ToLowerInvariant();
             }
 
             public string Name { get; set; }
 
             public OpenApiResponse OpenApiResponseObject { get; set; }
 
-            public override string ToString()
+            public string ResultLocation()
             {
-                return
-                    $"Path='{Path}',Operation='{Operation}',ResponseCode='{Name}'";
+                return ResultItem.FormatValue(path: Path, method: Method, response: Name);
             }
         }
 
@@ -196,11 +195,11 @@ namespace Jhulis.Core.Helpers.Extensions
             public int Depth { get; set; }
 
             //TODO Colocar esse ToString em todos os lugares que usam a Property
-            public override string ToString()
+            public String ResultLocation()
             {
                 return InsideOf == BodyType.Request
-                    ? $"Path='{Path}',Operation='{Operation}',Content='{Content}',PropertyFull='{FullName}',Property='{Name}'"
-                    : $"Path='{Path}',Operation='{Operation}',ResponseCode='{ResponseCode}',Content='{Content}',PropertyFull='{FullName}',Property='{Name}'";
+                    ? ResultItem.FormatValue(path: Path, method: Operation, requestProperty: FullName)
+                    : ResultItem.FormatValue(path: Path, method: Operation, response: ResponseCode, content: Content, responseProperty: FullName);
             }
 
             public enum BodyType
@@ -229,7 +228,7 @@ namespace Jhulis.Core.Helpers.Extensions
                     new Parameter
                     {
                         Path = path.Key,
-                        Operation = Convert.ToString(operation.Key).ToLowerInvariant(),
+                        Method = Convert.ToString(operation.Key).ToLowerInvariant(),
                         Name = parameter.Name,
                         OpenApiParameter = parameter,
                         ParentPathSegment = parentPathSegment
@@ -241,19 +240,55 @@ namespace Jhulis.Core.Helpers.Extensions
 
         public class Parameter
         {
-            private string operation;
+            private string method;
 
             public string Path { get; set; }
 
-            public string Operation
+            public string Method
             {
-                get => operation;
-                set => operation = value.ToLowerInvariant();
+                get => method;
+                set => method = value.ToLowerInvariant();
             }
 
             public string Name { get; set; }
             public string ParentPathSegment { get; set; }
             public OpenApiParameter OpenApiParameter { get; set; }
+            public ProcessingLevel Level { get; set; }
+
+            public enum ProcessingLevel
+            {
+                Request,
+                Response
+            }
+
+            public String ResultLocation()
+            {
+                switch (OpenApiParameter.In)
+                {
+                    case ParameterLocation.Query:
+                            return ResultItem.FormatValue(path: Path, method: method, queryParameter: Name);
+                        break;
+                    case ParameterLocation.Path:
+                            return ResultItem.FormatValue(path: Path, pathParameter: Name);
+                        break;
+                    case ParameterLocation.Header:
+                        switch (Level)
+                        {
+                            case ProcessingLevel.Request:
+                                return ResultItem.FormatValue(Path, method, requestHeader: Name);
+                                break;
+                            case ProcessingLevel.Response:
+                                return ResultItem.FormatValue(Path, method, responseHeader: Name);
+                                break;
+                        }
+                        break;
+                    case ParameterLocation.Cookie:
+                            return ResultItem.FormatValue(Path, method, cookie: Name);
+                        break;
+                }
+
+                return "ERROR while getting the parameter origin.";
+            }
         }
     }
 }

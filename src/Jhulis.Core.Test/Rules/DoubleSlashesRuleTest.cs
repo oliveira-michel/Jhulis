@@ -42,9 +42,9 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new DoubleSlashesRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Server.Url='https://api.test.com//base-path'", results[0].Value);
+            Assert.Equal("server.url:https://api.test.com//base-path", results[0].Value);
 
-            Assert.Equal("Path='//path-two'", results[1].Value);
+            Assert.Equal("path://path-two", results[1].Value);
 
             Assert.True(new DoubleSlashesRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

@@ -62,7 +62,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new PathParameterRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two/{idNothingToMatch}',Operation='get',Parameter='idNothingToMatch'",
+            Assert.Equal("path:/path-two/{idNothingToMatch},path-parameter:idNothingToMatch",
                 results[0].Value);
 
             Assert.True(new PathParameterRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

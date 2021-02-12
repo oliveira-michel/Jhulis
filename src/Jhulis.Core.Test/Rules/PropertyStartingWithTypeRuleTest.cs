@@ -61,11 +61,11 @@ namespace Jhulis.Core.Test.Rules
                 new PropertyStartingWithTypeRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
             Assert.Equal(
-                "Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.intPropertyOne',Property='intPropertyOne'",
+                "path:/path-two,method:get,response:200,content:application/json,response.property:data.intPropertyOne",
                 results[0].Value);
             
             Assert.Equal(
-                "Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.flagUpdated',Property='flagUpdated'",
+                "path:/path-two,method:get,response:200,content:application/json,response.property:data.flagUpdated",
                 results[1].Value);
 
             Assert.True(new PropertyStartingWithTypeRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
