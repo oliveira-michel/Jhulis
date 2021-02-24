@@ -54,7 +54,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new ValidResponseCodesRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='418'", results[0].Value);
+            Assert.Equal("path:/path-two,method:get,response:418", results[0].Value);
 
             Assert.True(new ValidResponseCodesRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
                             .Count == 0);

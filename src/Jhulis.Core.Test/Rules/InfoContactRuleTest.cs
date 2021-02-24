@@ -39,7 +39,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new InfoContactRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Info.Contact.Name='',Info.Contact.Email=''", results[0].Value);
+            Assert.Equal("info.contact.name:,info.contact.email:", results[0].Value);
 
             Assert.True(new InfoContactRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

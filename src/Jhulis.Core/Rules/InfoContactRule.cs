@@ -28,7 +28,7 @@ namespace Jhulis.Core.Rules
                 listResult.Add(new ResultItem(this)
                 {
                     Value =
-                        $"Info.Contact.Name='{Contract?.Info?.Contact?.Name}',Info.Contact.Email='{Contract?.Info?.Contact?.Email}'"
+                        $"info.contact.name:{Contract?.Info?.Contact?.Name},info.contact.email:{Contract?.Info?.Contact?.Email}"
                 });
         }
     }

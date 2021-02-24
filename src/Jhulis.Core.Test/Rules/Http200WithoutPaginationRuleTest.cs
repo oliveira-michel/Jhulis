@@ -58,7 +58,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new Http200WithoutPaginationRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two'", results[0].Value);
+            Assert.Equal("path:/path-two", results[0].Value);
 
             Assert.True(new Http200WithoutPaginationRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
                             .Count == 0);

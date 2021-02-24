@@ -34,8 +34,13 @@ namespace Jhulis.Core.Rules
 
                 var wordsInPath = lastPath.SplitCompositeWord(); //separa as palavras compostas
 
+                var alreadHitTheRule = false;
+
                 foreach (string wordInPath in wordsInPath)
                 {
+
+                    if (alreadHitTheRule) continue;
+
                     string singularWordInPath = wordInPath.EndsWith("s") //Remove o s que representa plural
                                                     ? wordInPath.Remove(wordInPath.Length - 2, 1) 
                                                     : wordInPath;
@@ -47,11 +52,8 @@ namespace Jhulis.Core.Rules
                         if (wordInProperty.ToLowerInvariant() == singularWordInPath.ToLowerInvariant()) //Verifica se a palavra da propriedade bate com a palavra do path.
                         {
                             listResult.Add(
-                                new ResultItem(this)
-                                {
-                                    Value =
-                                        $"Path='{property.Path}',Operation='{property.Operation}',ResponseCode='{property.ResponseCode}',Content='{property.Content}',PropertyFull='{property.FullName}',Property='{property.Name}'"
-                                });
+                                new ResultItem(this, property.ResultLocation()));
+                            alreadHitTheRule = true;
                         }
                     }
                 }

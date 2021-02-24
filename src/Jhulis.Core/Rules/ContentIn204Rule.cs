@@ -26,20 +26,19 @@ namespace Jhulis.Core.Rules
         {
             IEnumerable<IGrouping<string, OpenApiDocumentExtensions.Response>> responsesByPath = Contract
                 .GetAllResponses(Cache).GroupBy(
-                    resp => resp.Path + "|" + resp.Operation,
+                    resp => resp.Path + "|" + resp.Method,
                     resp => resp);
 
             foreach (IGrouping<string, OpenApiDocumentExtensions.Response> responses in responsesByPath)
             {
-                if (Supressions.IsSupressed(ruleName, responses.First().Path, responses.First().Operation)) continue;
+                if (Supressions.IsSupressed(ruleName, responses.First().Path, responses.First().Method)) continue;
 
                 if (
                     responses.Any(resp => resp.Name == "204"
                                           && resp.OpenApiResponseObject.Content.Values
                                               .Any(content => content.Schema != null)))
                     listResult.Add(
-                        new ResultItem(this)
-                            {Value = $"Path='{responses.First().Path}',Operation='{responses.First().Operation}'"});
+                        new ResultItem(this, path: responses.First().Path, method: responses.First().Method));
             }
         }
     }

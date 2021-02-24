@@ -32,7 +32,7 @@ namespace Jhulis.Core.Rules
 
                 if (string.IsNullOrWhiteSpace(pathSplited.Last()))
                     listResult.Add(
-                        new ResultItem(this) {Value = $"Path='{path.Key}'"});
+                        new ResultItem(this, path: path.Key));
             }
         }
     }

@@ -62,7 +62,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new MessagesEnvelopeFormatRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='200'", results[0].Value);
+            Assert.Equal("path:/path-two,method:get,response:200", results[0].Value);
 
             Assert.True(
                 new MessagesEnvelopeFormatRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

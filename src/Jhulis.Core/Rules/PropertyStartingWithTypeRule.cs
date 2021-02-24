@@ -34,11 +34,7 @@ namespace Jhulis.Core.Rules
                 if (wordsToAvoid.Any(w => property.Name.StartsWith(w)))
                 {
                     listResult.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{property.Path}',Operation='{property.Operation}',ResponseCode='{property.ResponseCode}',Content='{property.Content}',PropertyFull='{property.FullName}',Property='{property.Name}'"
-                        });
+                        new ResultItem(this, property.ResultLocation()));
                 }
             }
         }

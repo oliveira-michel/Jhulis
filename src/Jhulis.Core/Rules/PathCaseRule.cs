@@ -28,7 +28,7 @@ namespace Jhulis.Core.Rules
                 caseType = caseTypeConversionTryOut;
             else
                 throw new InvalidEnumArgumentException(
-                    $"{ruleName}.CaseType={ruleSettings.Value.PathCase.CaseType}");
+                    $"{ruleName}.CaseType:{ruleSettings.Value.PathCase.CaseType}");
 
             caseTypeTolerateNumber = ruleSettings.Value.PathCase.CaseTypeTolerateNumber;
             example = ruleSettings.Value.PathCase.Example;
@@ -52,7 +52,7 @@ namespace Jhulis.Core.Rules
                                 Description = Description
                                     .Replace("{0}", caseType.GetEnumDescription())
                                     .Replace("{1}", example),
-                                Value = $"Path='{path.Key}',PathSegment='{pathSegment}'"
+                                Value = ResultItem.FormatValue(path: path.Key, pathSegment: pathSegment)
                             });
             }
         }

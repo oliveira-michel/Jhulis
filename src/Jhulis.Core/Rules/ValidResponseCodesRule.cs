@@ -27,16 +27,12 @@ namespace Jhulis.Core.Rules
         {
             foreach (OpenApiDocumentExtensions.Response response in Contract.GetAllResponses(Cache))
             {
-                if (Supressions.IsSupressed(ruleName, response.Path, response.Operation, string.Empty,
+                if (Supressions.IsSupressed(ruleName, response.Path, response.Method, string.Empty,
                     response.Name)) continue;
 
                 if (!validHttpCodes.Contains(response.Name))
                     listResult.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{response.Path}',Operation='{response.Operation}',ResponseCode='{response.Name}'"
-                        });
+                        new ResultItem(this, path:response.Path, method:response.Method, response: response.Name));
             }
         }
     }

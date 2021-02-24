@@ -37,7 +37,7 @@ namespace Jhulis.Core.Test.Rules
         [Fact]
         public void Execute()
         {
-            Assert.Equal(string.Empty,
+            Assert.Equal(null,
               new BaseUrlRule(openApiContract, supressions, ruleSettings, cache).Execute().First().Value);
             
             Assert.Empty(new BaseUrlRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute());

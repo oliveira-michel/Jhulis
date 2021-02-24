@@ -43,7 +43,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new Http3xxWithoutLocationHeaderRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two',Operation='get',ResponseCode='303'", results[0].Value);
+            Assert.Equal("path:/path-two,method:get,response:303", results[0].Value);
 
             Assert.True(new Http3xxWithoutLocationHeaderRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
                             .Count == 0);

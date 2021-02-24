@@ -50,11 +50,7 @@ namespace Jhulis.Core.Rules
                         .Any(w => wordsToAvoid.Contains(w)))
                         {
                             listResult.Add(
-                                new ResultItem(this)
-                                {
-                                    Value =
-                                        $"Path='{path}'"
-                                });
+                                new ResultItem(this, path:path));
                         }
                     }
                 }
@@ -62,7 +58,7 @@ namespace Jhulis.Core.Rules
 
             foreach (OpenApiDocumentExtensions.Parameter parameter in Contract.GetAllParameters())
             {
-                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Operation, parameter.Name)) continue;
+                if (Supressions.IsSupressed(ruleName, parameter.Path, parameter.Method, parameter.Name)) continue;
 
                 if (
                     parameter.Name.SplitCompositeWord()
@@ -70,11 +66,7 @@ namespace Jhulis.Core.Rules
                     .Any(w => wordsToAvoid.Contains(w)))
                 {
                     listResult.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{parameter.Path}',Operation='{parameter.Operation}',Parameter='{parameter.Name}'"
-                        });
+                        new ResultItem(this, parameter.ResultLocation()));
                 }
             }
 
@@ -89,13 +81,7 @@ namespace Jhulis.Core.Rules
                     .Any(w => wordsToAvoid.Contains(w)))
                 {
                     listResult.Add(
-                        new ResultItem(this)
-                        {
-                            Value =
-                                $"Path='{property.Path}',Operation='{property.Operation}',ResponseCode='{property.ResponseCode}',Content='{property.Content}',PropertyFull='{property.FullName}',Property='{property.Name}'"
-                        });
-
-                    //TODO colocar este Content = '{property.Content}' em todas as respostas que vão até este nível
+                        new ResultItem(this, property.ResultLocation()));
                 }
             }
         }

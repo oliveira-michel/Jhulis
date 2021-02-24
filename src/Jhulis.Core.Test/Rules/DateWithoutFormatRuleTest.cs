@@ -57,15 +57,15 @@ namespace Jhulis.Core.Test.Rules
 
             Assert.Equal(5, results.Count);
             
-            Assert.Equal(@"Path='/path-one',Operation='get',Parameter='one'",
+            Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:one",
                 results[0].Value);
-            Assert.Equal(@"Path='/path-one',Operation='get',Parameter='two'",
+            Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:two",
                 results[1].Value);
-            Assert.Equal(@"Path='/path-one',Operation='get',Parameter='three'",
+            Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:three",
                 results[2].Value);
-            Assert.Equal(@"Path='/path-one',Operation='get',Parameter='four'",
+            Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:four",
                 results[3].Value);
-            Assert.Equal(@"Path='/path-one',Operation='get',Parameter='five'",
+            Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:five",
                 results[4].Value);
             
             Assert.True(new DateWithoutFormatRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

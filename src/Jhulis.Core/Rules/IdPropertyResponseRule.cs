@@ -38,7 +38,7 @@ namespace Jhulis.Core.Rules
                     properties.First().ResponseCode)) continue;
 
                 if (
-                    properties.First().InsideOf == OpenApiDocumentExtensions.Property.BodyType.Response &&
+                    properties.First().Level == OpenApiDocumentExtensions.Property.ProcessingLevel.Response &&
                     properties.First().ResponseCode != null &&
                     properties.First().ResponseCode != "204" &&
                     (properties.First().ResponseCode.StartsWith("2") || properties.First().ResponseCode.StartsWith("3"))
@@ -48,8 +48,7 @@ namespace Jhulis.Core.Rules
                         {
                             Description = Description.Replace("{0}", idPropertyName),
                             Details = Details.Replace("{0}", idPropertyName),
-                            Value =
-                                $"Path='{properties.First().Path}',Operation='{properties.First().Operation}',ResponseCode='{properties.First().ResponseCode}'"
+                            Value = ResultItem.FormatValue(path: properties.First().Path, method: properties.First().Operation, response: properties.First().ResponseCode)
                         });
             }
         }

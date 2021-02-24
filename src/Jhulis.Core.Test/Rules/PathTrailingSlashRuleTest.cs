@@ -42,7 +42,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new PathTrailingSlashRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two/'", results[0].Value);
+            Assert.Equal("path:/path-two/", results[0].Value);
 
             Assert.True(
                 new PathTrailingSlashRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

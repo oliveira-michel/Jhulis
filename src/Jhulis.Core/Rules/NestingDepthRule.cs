@@ -35,7 +35,7 @@ namespace Jhulis.Core.Rules
                         new ResultItem(this)
                         {
                             Details = Details.Replace("{0}", Convert.ToString(maxDepth)),
-                            Value = property.ToString()
+                            Value = property.ResultLocation()
                         });
             }
         }

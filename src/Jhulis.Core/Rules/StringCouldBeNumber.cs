@@ -50,11 +50,7 @@ namespace Jhulis.Core.Rules
                     continue;
 
                 listResult.Add(
-                    new ResultItem(this)
-                    {
-                        Value =
-                            $"Path='{property.Path}',Operation='{property.Operation.ToLowerInvariant()}',Parameter='{property.FullName}'"
-                    });
+                    new ResultItem(this, property.ResultLocation()));
             }
         }
 

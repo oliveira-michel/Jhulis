@@ -43,7 +43,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results =
                 new Http201WithoutLocationHeaderRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("Path='/path-two',Operation='post',ResponseCode='201'", results[0].Value);
+            Assert.Equal("path:/path-two,method:post,response:201", results[0].Value);
 
             Assert.True(new Http201WithoutLocationHeaderRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute()
                             .Count == 0);

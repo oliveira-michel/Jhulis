@@ -63,7 +63,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results = new PropertyCaseRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
             Assert.Equal(
-                "Path='/path-two',Operation='get',ResponseCode='200',Content='application/json',PropertyFull='data.property-One',Property='property-One'",
+                "path:/path-two,method:get,response:200,content:application/json,response.property:data.property-One",
                 results[0].Value);
 
             Assert.True(new PropertyCaseRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
