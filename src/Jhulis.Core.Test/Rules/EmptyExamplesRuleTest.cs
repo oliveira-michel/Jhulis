@@ -60,15 +60,15 @@ namespace Jhulis.Core.Test.Rules
             Assert.Equal(3, results.Count);
             
             Assert.Equal(
-                "Path='/path-one',Operation='get',Response='200',Parameter='data'",
+                "path:/path-one,method:get,response:200,content:application/json,response.property:data",
                 results[0].Value);
             
             Assert.Equal(
-                "Path='/path-one',Operation='get',Response='200',Parameter='data.propertyTwo'",
+                "path:/path-one,method:get,response:200,content:application/json,response.property:data.propertyTwo",
                 results[1].Value);
 
             Assert.Equal(
-                "Path='/path-one',Operation='get',Response='200',Parameter='propertyThree'",
+                "path:/path-one,method:get,response:200,content:application/json,response.property:propertyThree",
                 results[2].Value);
             
             Assert.True(new EmptyExamplesRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);

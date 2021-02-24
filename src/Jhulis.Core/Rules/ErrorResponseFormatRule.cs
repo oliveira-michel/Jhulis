@@ -41,7 +41,7 @@ namespace Jhulis.Core.Rules
                         property.ResponseCode, property.FullName)) continue;
 
                     if (
-                        property.InsideOf == OpenApiDocumentExtensions.Property.BodyType.Response &&
+                        property.Level == OpenApiDocumentExtensions.Property.ProcessingLevel.Response &&
                         property.ResponseCode != null &&
                         (property.ResponseCode.StartsWith("4") || property.ResponseCode.StartsWith("5"))
                         && //There aren't any property not contained on the default ones.

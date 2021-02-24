@@ -86,7 +86,7 @@ namespace Jhulis.Core.Helpers.Extensions
                             GetInnerProperties(path.Key, operation.Key.ToString(),
                                 response.Key, content.Key, null,
                                 //firstLevelproperty.Value.Properties)
-                                propertyList, Property.BodyType.Response, maxDepth, currentDepth)
+                                propertyList, Property.ProcessingLevel.Response, maxDepth, currentDepth)
                         );
                     }
 
@@ -104,7 +104,7 @@ namespace Jhulis.Core.Helpers.Extensions
                             resultItens.TryAddEmptiableRange(
                                 GetInnerProperties(path.Key, operation.Key.ToString(),
                                     /*body de entrada não tem response code*/null, content.Key, null,
-                                    propertyList, Property.BodyType.Request, maxDepth, currentDepth)
+                                    propertyList, Property.ProcessingLevel.Request, maxDepth, currentDepth)
                             );
                         }
             }
@@ -116,7 +116,7 @@ namespace Jhulis.Core.Helpers.Extensions
 
         private static List<Property> GetInnerProperties(
             string path, string operation, string responseCode, string content, string propertiesChain,
-            IDictionary<string, OpenApiSchema> properties, Property.BodyType bodyType, int maxDepth, int currentDepth)
+            IDictionary<string, OpenApiSchema> properties, Property.ProcessingLevel processingLevel, int maxDepth, int currentDepth)
         {
             var resultItens = new List<Property>();
 
@@ -142,7 +142,7 @@ namespace Jhulis.Core.Helpers.Extensions
                         Example = property.Value.Example,
                         HittedMaxDepth = hittedMaxDepth,
                         Depth = currentDepth,
-                        InsideOf = bodyType
+                        Level = processingLevel
                     });
 
                 if (!hittedMaxDepth)
@@ -159,7 +159,7 @@ namespace Jhulis.Core.Helpers.Extensions
                                 string.IsNullOrEmpty(propertiesChain)
                                     ? propertiesChain + property.Key
                                     : propertiesChain + "." + property.Key,
-                                propertyList, bodyType, maxDepth, currentDepth)
+                                propertyList, processingLevel, maxDepth, currentDepth)
                         );
                         currentDepth--;
                     }
@@ -187,7 +187,7 @@ namespace Jhulis.Core.Helpers.Extensions
             public string Name { get; set; }
             public string Description { get; set; }
             public IOpenApiAny Example { get; set; }
-            public BodyType InsideOf { get; set; }
+            public ProcessingLevel Level { get; set; }
 
             public OpenApiSchema OpenApiSchemaObject { get; set; }
 
@@ -197,12 +197,12 @@ namespace Jhulis.Core.Helpers.Extensions
             //TODO Colocar esse ToString em todos os lugares que usam a Property
             public String ResultLocation()
             {
-                return InsideOf == BodyType.Request
+                return Level == ProcessingLevel.Request
                     ? ResultItem.FormatValue(path: Path, method: Operation, requestProperty: FullName)
                     : ResultItem.FormatValue(path: Path, method: Operation, response: ResponseCode, content: Content, responseProperty: FullName);
             }
 
-            public enum BodyType
+            public enum ProcessingLevel
             {
                 Request,
                 Response
@@ -215,27 +215,47 @@ namespace Jhulis.Core.Helpers.Extensions
             var resultItens = new List<Parameter>();
 
             foreach (KeyValuePair<string, OpenApiPathItem> path in document.Paths)
-            foreach (KeyValuePair<OperationType, OpenApiOperation> operation in path.Value.Operations)
-            foreach (OpenApiParameter parameter in operation.Value.Parameters)
             {
-                string[] pathSegments = path.Key.Split('/');
-                string parentPathSegment = string.Empty;
-                for (int i = pathSegments.Length - 1; i >= 0; i--)
-                    if (pathSegments[i] == parameter.Name)
-                        parentPathSegment = pathSegments[i - 1];
+                foreach (OpenApiParameter parameter in path.Value.Parameters)
+                {
+                    resultItens.Add(
+                        new Parameter
+                        {
+                            Path = path.Key,
+                            Name = parameter.Name,
+                            OpenApiParameter = parameter,
+                            ParentPathSegment = ExtractParentPahSegment(path, parameter),
+                            Level = Parameter.ProcessingLevel.Request
+                        });
+                }
 
-                resultItens.Add(
-                    new Parameter
+                foreach (KeyValuePair<OperationType, OpenApiOperation> operation in path.Value.Operations)
+                    foreach (OpenApiParameter parameter in operation.Value.Parameters)
                     {
-                        Path = path.Key,
-                        Method = Convert.ToString(operation.Key).ToLowerInvariant(),
-                        Name = parameter.Name,
-                        OpenApiParameter = parameter,
-                        ParentPathSegment = parentPathSegment
-                    });
+                        resultItens.Add(
+                            new Parameter
+                            {
+                                Path = path.Key,
+                                Method = Convert.ToString(operation.Key).ToLowerInvariant(),
+                                Name = parameter.Name,
+                                OpenApiParameter = parameter,
+                                ParentPathSegment = ExtractParentPahSegment(path, parameter),
+                                Level = Parameter.ProcessingLevel.Response
+                            });
+                    }
             }
 
             return resultItens;
+        }
+
+        private static string ExtractParentPahSegment(KeyValuePair<string, OpenApiPathItem> path, OpenApiParameter parameter)
+        {
+            string[] pathSegments = path.Key.Split('/');
+            string parentPathSegment = string.Empty;
+            for (int i = pathSegments.Length - 1; i >= 0; i--)
+                if (pathSegments[i] == parameter.Name)
+                    parentPathSegment = pathSegments[i - 1];
+            return parentPathSegment;
         }
 
         public class Parameter
@@ -275,15 +295,15 @@ namespace Jhulis.Core.Helpers.Extensions
                         switch (Level)
                         {
                             case ProcessingLevel.Request:
-                                return ResultItem.FormatValue(Path, method, requestHeader: Name);
+                                return ResultItem.FormatValue(path: Path, method: method, requestHeader: Name);
                                 break;
                             case ProcessingLevel.Response:
-                                return ResultItem.FormatValue(Path, method, responseHeader: Name);
+                                return ResultItem.FormatValue(path: Path, method: method, responseHeader: Name);
                                 break;
                         }
                         break;
                     case ParameterLocation.Cookie:
-                            return ResultItem.FormatValue(Path, method, cookie: Name);
+                            return ResultItem.FormatValue(path: Path, method: method, cookie: Name);
                         break;
                 }
 

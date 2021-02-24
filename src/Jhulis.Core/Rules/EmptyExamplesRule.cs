@@ -123,32 +123,8 @@ namespace Jhulis.Core.Rules
                 while (propertyLevelWithExample.Count > 0 && property.Depth < propertyLevelWithExample.Peek())
                     propertyLevelWithExample.Pop();
 
-                var responseKeyValue = property.InsideOf == OpenApiDocumentExtensions.Property.BodyType.Response
-                    ? $"Response='{property.ResponseCode}',"
-                    : "";
-
                 listResult.Add(
-                    new ResultItem(this)
-                    {
-                        Value =
-                            $"Path='{property.Path}',Operation='{property.Operation.ToLowerInvariant()}',{responseKeyValue}Parameter='{property.FullName}'"
-                    });
-            }
-
-            foreach (string s in schemasWithoutExample)
-            {
-                var schemaParts = s.Split('|');
-
-                var responseKeyValue = !string.IsNullOrEmpty(schemaParts[2].ToString())
-                    ? $"Response='{schemaParts[2].ToString()}',"
-                    : "";
-
-                listResult.Add(
-                    new ResultItem(this)
-                    {
-                        Value =
-                            $"Path='{schemaParts[0].ToString()}',Operation='{schemaParts[1].ToString()}',{responseKeyValue}Parameter='{schemaParts[3].ToString()}'"
-                    });
+                    new ResultItem(this, property.ResultLocation()));
             }
         }
     }

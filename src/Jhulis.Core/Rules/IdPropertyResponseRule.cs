@@ -38,7 +38,7 @@ namespace Jhulis.Core.Rules
                     properties.First().ResponseCode)) continue;
 
                 if (
-                    properties.First().InsideOf == OpenApiDocumentExtensions.Property.BodyType.Response &&
+                    properties.First().Level == OpenApiDocumentExtensions.Property.ProcessingLevel.Response &&
                     properties.First().ResponseCode != null &&
                     properties.First().ResponseCode != "204" &&
                     (properties.First().ResponseCode.StartsWith("2") || properties.First().ResponseCode.StartsWith("3"))
