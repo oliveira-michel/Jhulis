@@ -31,7 +31,7 @@ namespace Jhulis.Core.Test.Rules
                 new Supression
                 {
                     RuleName = ruleName,
-                    Target = "Path='/path-one/{idNothingToMatch}',Operation='get',Parameter='idNothingToMatch'"
+                    Target = "Path='/path-one/{idNothingToMatch}',Parameter='idNothingToMatch'"
                 }
             });
 
