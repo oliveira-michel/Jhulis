@@ -252,9 +252,18 @@ namespace Jhulis.Core.Helpers.Extensions
         {
             string[] pathSegments = path.Key.Split('/');
             string parentPathSegment = string.Empty;
+
             for (int i = pathSegments.Length - 1; i >= 0; i--)
-                if (pathSegments[i] == parameter.Name)
+                if (
+                    (pathSegments[i].StartsWith("{") && pathSegments[i].EndsWith("}") ? 
+                            pathSegments[i].Substring(1, pathSegments[i].Length - 2) : 
+                            pathSegments[i]) 
+                    == parameter.Name)
+                {
                     parentPathSegment = pathSegments[i - 1];
+                    break;
+                }
+                    
             return parentPathSegment;
         }
 
