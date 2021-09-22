@@ -12,6 +12,7 @@
         public PaginationEnvelopeFormatConfig PaginationEnvelopeFormat { get; set; }
         public PathCaseConfig PathCase { get; set; }
         public PathParameterConfig PathParameter { get; set; }
+        public PathPluralConfig PathPlural { get; set; }
         public PathWithCrudNamesConfig PathWithCrudNames { get; set; }
         public PropertyCaseConfig PropertyCase { get; set; }
         public PropertyStartingWithTypeConfig PropertyStartingWithType { get; set; }
@@ -93,7 +94,12 @@
         public string CaseType { get; set; }
         public string Example { get; set; }
     }
-   
+
+    public class PathPluralConfig
+    {
+        public string Exceptions { get; set; }
+    }
+
     public class PathWithCrudNamesConfig
     {
         public string WordsToAvoid { get; set; }
