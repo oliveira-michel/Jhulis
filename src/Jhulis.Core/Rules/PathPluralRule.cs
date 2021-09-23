@@ -4,12 +4,14 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Jhulis.Core.Helpers.Extensions;
+using System;
 
 namespace Jhulis.Core.Rules
 {
     public class PathPluralRule : RuleBase
     {
         private const string ruleName = "PathPlural";
+        private readonly string[] exceptions;
 
         /// <summary>
         /// Validate if collections in path are plural (aka finishing with 's').
@@ -37,6 +39,8 @@ namespace Jhulis.Core.Rules
 
                 foreach (string pathSegment in pathSplited)
                 {
+                    if (Array.Exists(exceptions, x => x == pathSegment)) continue;                
+
                     if (pathSegment.Contains("{") || string.IsNullOrEmpty(pathSegment)) continue;
 
                     var hasOneWordFinishingWithS = false;
