@@ -33,8 +33,19 @@ namespace Jhulis.Core.Test.Rules
 
             supressionEntireRule = new Supressions(
                 new List<Supression> {new Supression {RuleName = ruleName, Target = "*"}});
-            
+
+            var settings = new RuleSettings()
+            {
+                PathPlural = new PathPluralConfig()
+                {
+                    Exceptions = "health,xpto"
+                }
+            };
+
+            ruleSettings = Options.Create(settings);
+
             cache = new OpenApiDocumentCache();
+
         }
 
         [Fact]
@@ -42,7 +53,7 @@ namespace Jhulis.Core.Test.Rules
         {
             List<ResultItem> results = new PathPluralRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
-            Assert.Equal("path:/path-two,path-segment:path-two", results[0].Value);
+            Assert.Equal("path:/path-three,path-segment:path-three", results[0].Value);
 
             Assert.True(new PathPluralRule(openApiContract, supressionEntireRule, ruleSettings, cache).Execute().Count == 0);
         }

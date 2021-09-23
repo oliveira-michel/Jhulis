@@ -19,10 +19,13 @@ namespace Jhulis.Core.Rules
             IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache) :
             base(contract, supressions, ruleSettings, cache, ruleName, Severity.Warning)
         {
+            exceptions = ruleSettings.Value.PathPlural?.Exceptions?.Split(',');
         }
 
         private protected override void ExecuteRuleLogic()
         {
+            
+
             foreach (KeyValuePair<string, OpenApiPathItem> path in Contract.Paths)
             {
                 if (Supressions.IsSupressed(ruleName, path.Key)) continue;
