@@ -114,7 +114,7 @@ namespace Jhulis.Core
                         && supressionsDictionary[ruleName]["Path"] == path
                         || !supressionsDictionary[ruleName].ContainsKey("Path")
                     ) && (supressionsDictionary[ruleName].ContainsKey("Operation")
-                          && supressionsDictionary[ruleName]["Operation"].ToLowerInvariant() == operation.ToLowerInvariant()
+                          && supressionsDictionary[ruleName]["Operation"].ToLowerInvariant() == operation?.ToLowerInvariant()
                           || !supressionsDictionary[ruleName].ContainsKey("Operation")
                     ) && (supressionsDictionary[ruleName].ContainsKey("Parameter")
                           && supressionsDictionary[ruleName]["Parameter"] == parameter

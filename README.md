@@ -398,6 +398,11 @@ Parâmetros:
 O Path na maioria das vezes deve ser um substantivo no plural. Ex: clientes.
 
 <sup>*Em alguns cenários menos frequentes, o nome do path pode não seguir a regra do substantivo e/ou representar um serviço (verbo), neste caso, utilize o arquivo de configuração para não processar esta regra.*</sup>
+
+Parâmetros:
+
+* `Exceptions:  healthcheck,health-check,health` define lista de nomes de endpoints que devem ser ignorados na regra.
+
 #### PathTrailingSlash
 Não colocar '/' no final dos paths.
 
