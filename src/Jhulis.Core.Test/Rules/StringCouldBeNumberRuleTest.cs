@@ -18,11 +18,11 @@ namespace Jhulis.Core.Test.Rules
         private Supressions supressionEntireRule;
         private IOptions<RuleSettings> ruleSettings;
         private const string ruleName = "StringCouldBeNumber";
-        private OpenApiDocumentCache cache; 
+        private OpenApiDocumentCache cache;
 
         public StringCouldBeNumberRuleTest()
         {
-            const string contract = "{\n  \"swagger\" : \"2.0\",\n  \"info\" : {\n    \"title\": \"teste 2\",\n    \"version\": \"1.0\"\n  },\n  \"consumes\" : [ \"application/json\" ],\n  \"produces\" : [ \"application/json\" ],\n  \"paths\" : {\n    \"/path-one\" : {\n      \"get\" : {\n        \"responses\" : {\n          \"200\" : {\n            \"description\" : \"Status 200\",\n            \"schema\" : {\n              \"type\" : \"object\",\n              \"properties\" : {\n                \"one\" : {\n                  \"type\" : \"string\",\n                  \"example\": \"R$ 100.000,11\"\n                },\n                \"two\" : {\n                  \"type\" : \"string\",\n                  \"example\": \"020.22\"\n                },\n                \"three\" : {\n                  \"type\" : \"string\",\n                  \"example\": \"030,30\"\n                },\n                \"four\" : {\n                  \"type\" : \"string\",\n                  \"example\": \" 44 \"\n                },\n                \"five\" : {\n                  \"type\" : \"number\",\n                  \"example\": .5\n                }\n              }\n            }\n          }\n        }\n      }\n    },\n    \"/path-two\" : {\n      \"get\" : {\n        \"responses\" : {\n          \"200\" : {\n            \"description\" : \"Status 200\",\n            \"schema\" : {\n              \"type\" : \"object\",\n              \"properties\" : {\n                \"data\" : {\n                  \"type\" : \"object\",\n                  \"properties\" : {\n                    \"six\" : {\n                      \"type\" : \"string\",\n                      \"example\": \"6\"\n                    },\n                    \"seven\" : {\n                      \"type\" : \"string\",\n                      \"example\": \"A77\"\n                    },\n                    \"anIp\" : {\n                      \"type\" : \"string\",\n                      \"example\": \"192.168.0.110\"\n                    }\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n}";
+            const string contract = "{\r\n  \"swagger\" : \"2.0\",\r\n  \"info\" : {\r\n    \"title\": \"teste 2\",\r\n    \"version\": \"1.0\"\r\n  },\r\n  \"consumes\" : [ \"application/json\" ],\r\n  \"produces\" : [ \"application/json\" ],\r\n  \"paths\" : {\r\n    \"/path-one\" : {\r\n      \"get\" : {\r\n        \"responses\" : {\r\n          \"200\" : {\r\n            \"description\" : \"Status 200\",\r\n            \"schema\" : {\r\n              \"type\" : \"object\",\r\n              \"properties\" : {\r\n                \"one\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \"R$ 100.000,11\"\r\n                },\r\n                \"two\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \"020.22\"\r\n                },\r\n                \"three\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \"030,30\"\r\n                },\r\n                \"four\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \" 44 \"\r\n                },\r\n                \"five\" : {\r\n                  \"type\" : \"number\",\r\n                  \"example\": .5\r\n                },\r\n                \"anIp\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \"192.168.0.110\"\r\n                },\r\n                \"clientCpf\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \"33344455566\"\r\n                },\r\n                \"cnpjRaiz\" : {\r\n                  \"type\" : \"string\",\r\n                  \"example\": \"12345678\"\r\n                }\r\n              }\r\n            }\r\n          }\r\n        }\r\n      }\r\n    },\r\n    \"/path-two\" : {\r\n      \"get\" : {\r\n        \"responses\" : {\r\n          \"200\" : {\r\n            \"description\" : \"Status 200\",\r\n            \"schema\" : {\r\n              \"type\" : \"object\",\r\n              \"properties\" : {\r\n                \"data\" : {\r\n                  \"type\" : \"object\",\r\n                  \"properties\" : {\r\n                    \"six\" : {\r\n                      \"type\" : \"string\",\r\n                      \"example\": \"6\"\r\n                    },\r\n                    \"seven\" : {\r\n                      \"type\" : \"string\",\r\n                      \"example\": \"A77\"\r\n                    },\r\n                    \"anIp\" : {\r\n                      \"type\" : \"string\",\r\n                      \"example\": \"192.168.0.110\"\r\n                    }\r\n                  }\r\n                }\r\n              }\r\n            }\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}";
             openApiContract = new OpenApiStringReader().Read(contract, out OpenApiDiagnostic _);
 
             supressions = new Supressions(new List<Supression>
@@ -35,13 +35,14 @@ namespace Jhulis.Core.Test.Rules
             });
 
             supressionEntireRule = new Supressions(
-                new List<Supression> {new Supression {RuleName = ruleName, Target = "*"}});
-            
+                new List<Supression> { new Supression { RuleName = ruleName, Target = "*" } });
+
             var settings = new RuleSettings()
             {
                 StringCouldBeNumber = new StringCouldBeNumberConfig()
                 {
-                    CurrencySymbols = "$,.?,?,?.,?.?.,??,???,???.,¢,£,¥,€,AMD,Ar,AUD,B/.,BND,Br,Bs.,Bs.,Bs.S.,C$,CUC,D,Db,din.,Esc,ƒ,FOK,Fr,Fr.,Ft,G,GBP,GGP,INR,JOD,K,Kc,KM,kn,kr,Ks,Kz,L,Le,lei,m,MAD,MK,MRU,MT,Nfk,Nu.,NZD,P,PND,Q,R,R$,RM,Rp,Rs,RUB,S/.,SGD,Sh,Sl,so'm,T,T$,UM,USD,Vt,ZAR,ZK,zl"    
+                    CurrencySymbols = "$,.?,?,?.,?.?.,??,???,???.,¢,£,¥,€,AMD,Ar,AUD,B/.,BND,Br,Bs.,Bs.,Bs.S.,C$,CUC,D,Db,din.,Esc,ƒ,FOK,Fr,Fr.,Ft,G,GBP,GGP,INR,JOD,K,Kc,KM,kn,kr,Ks,Kz,L,Le,lei,m,MAD,MK,MRU,MT,Nfk,Nu.,NZD,P,PND,Q,R,R$,RM,Rp,Rs,RUB,S/.,SGD,Sh,Sl,so'm,T,T$,UM,USD,Vt,ZAR,ZK,zl",
+                    ExceptionsRegex = @"(?i)(\W|^|\-)[\w.\-]{0,100}(cpf|cnpj)[\w.\-]{0,100}(\W|$|\-)"
                 },
                 NestingDepth = new NestingDepthConfig()
                 {
@@ -50,7 +51,7 @@ namespace Jhulis.Core.Test.Rules
             };
 
             ruleSettings = Options.Create(settings);
-            
+
             cache = new OpenApiDocumentCache();
         }
 
@@ -60,7 +61,7 @@ namespace Jhulis.Core.Test.Rules
             List<ResultItem> results = new StringCouldBeNumberRule(openApiContract, supressions, ruleSettings, cache).Execute();
 
             Assert.Equal(4, results.Count);
-            
+
             Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:one",
                 results[0].Value);
             Assert.Equal(@"path:/path-one,method:get,response:200,content:application/json,response.property:two",

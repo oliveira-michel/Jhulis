@@ -15,7 +15,7 @@ namespace Jhulis.Core.Rules
     public class StringCouldBeNumberRule : RuleBase
     {
         private const string ruleName = "StringCouldBeNumber";
-
+        private readonly string exceptionsRegex = string.Empty;
         /// <summary>
         /// Validates if parameters or attributes have examples indicating that the content is likely numeric type.
         /// Supressions: Rule,Path,Operation,ResponseCode,Content,PropertyFull
@@ -25,6 +25,7 @@ namespace Jhulis.Core.Rules
             IOptions<RuleSettings> ruleSettings, OpenApiDocumentCache cache)
             : base(contract, supressions, ruleSettings, cache, ruleName, Severity.Hint)
         {
+            exceptionsRegex = ruleSettings.Value.StringCouldBeNumber.ExceptionsRegex;
         }
 
         private protected override void ExecuteRuleLogic()
@@ -39,6 +40,7 @@ namespace Jhulis.Core.Rules
                         property.OpenApiSchemaObject.Type.ToLower() == "string" &&
                         property.Example is OpenApiString apiString &&
                         !Regex.IsMatch(apiString.Value, RegexLibrary.IpV4) &&//It is not an IP v4
+                        !Regex.IsMatch(property.Name, exceptionsRegex) &&
                         IsLikelyNumberType(apiString.Value))
                     .ToList();
 

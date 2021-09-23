@@ -126,6 +126,7 @@
     public class StringCouldBeNumberConfig
     {
         public string CurrencySymbols { get; set; }
+        public string ExceptionsRegex { get; set; }
     }
 
     public class ValidResponseCodesConfig
