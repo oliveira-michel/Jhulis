@@ -25,7 +25,6 @@ namespace Jhulis.Core.Rules
         }
 
         //Path|Operation|Response|Content 
-        private HashSet<string> schemasWithoutExample = new HashSet<string>();
         private HashSet<string> schemasWithExample = new HashSet<string>();
 
         private protected override void ExecuteRuleLogic()
@@ -49,13 +48,10 @@ namespace Jhulis.Core.Rules
                         bool foundExample = response.Value.Content.Any(x =>
                                 x.Value?.Schema?.Example != null
                             || (x.Value?.Example != null)
-                            || (x.Value?.Examples != null && x.Value?.Examples.Count > 0));
+                            || (x.Value?.Examples != null && x.Value?.Examples.Count > 0)
+                            || (x.Value?.Schema?.Items?.Example != null));
 
-                        if (!foundExample)
-                            foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
-                                schemasWithoutExample.Add(
-                                    $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}|{response.Key}|{content.Key}");
-                        else
+                        if (foundExample)
                             foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
                                 schemasWithExample.Add(
                                     $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}|{response.Key}|{content.Key}");
@@ -69,13 +65,10 @@ namespace Jhulis.Core.Rules
                         bool foundExample = operation.Value?.RequestBody?.Content.Any(x =>
                                 x.Value.Schema?.Example != null
                             || (x.Value?.Example != null)
-                            || (x.Value?.Examples != null && x.Value.Examples.Count > 0)) == true;
+                            || (x.Value?.Examples != null && x.Value.Examples.Count > 0)
+                            || (x.Value?.Schema?.Items?.Example != null)) == true;
 
-                        if (!foundExample)
-                            foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
-                                schemasWithoutExample.Add(
-                                     $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}||{content.Key}");
-                        else
+                        if (foundExample)
                             foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
                                 schemasWithExample.Add(
                                      $"{path.Key}|{operation.Key.ToString().ToLowerInvariant()}||{content.Key}");
@@ -94,6 +87,7 @@ namespace Jhulis.Core.Rules
                     continue;
 
                 //Clear stack if changes the path, operation, response or content.
+                //This stack acumulate properties that have example.
                 if (currentBody !=
                     $"{property.Path}|{property.Operation}|{property.ResponseCode}|{property.Content}")
                 {
@@ -101,21 +95,26 @@ namespace Jhulis.Core.Rules
                     propertyLevelWithExample.Clear();
                 }
 
-                //This property is into an schema with example at schema level.
+                //This property is into an schema 'with example' at schema level. It is one of all properties at some level.
                 if (schemasWithExample.Contains(currentBody))
                     continue;
 
                 //Define current depth as last one with example
                 //Clear item from schemasWithoutExample list 
+                //It will be escaped, because have example
                 if (property.Example != null)
                 {
                     propertyLevelWithExample.Push(property.Depth);
-                    schemasWithoutExample.Remove(
-                        $"{property.Path}|{property.Operation}|{property.ResponseCode}|{property.Content}");
                     continue;
                 }
 
+                //It is an array, than it is like to have a subproperty that is needed to check if has example too.
+                //It will be escaped to check if some of children have examples.
+                if (property.OpenApiSchemaObject.Items != null)
+                    continue;
+
                 //The property is under another one with example
+                //It will be escaped, because the parent have example.
                 if (propertyLevelWithExample.Count > 0 && property.Depth > propertyLevelWithExample.Peek())
                     continue;
 
@@ -123,6 +122,7 @@ namespace Jhulis.Core.Rules
                 while (propertyLevelWithExample.Count > 0 && property.Depth < propertyLevelWithExample.Peek())
                     propertyLevelWithExample.Pop();
 
+                //None of positive conditions above worked, than it do not have examples. 
                 listResult.Add(
                     new ResultItem(this, property.ResultLocation()));
             }
