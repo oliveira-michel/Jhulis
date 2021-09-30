@@ -47,9 +47,10 @@ namespace Jhulis.Core.Rules
                         //Here, we want at least one example at response type level
                         bool foundExample = response.Value.Content.Any(x =>
                                 x.Value?.Schema?.Example != null
-                            || (x.Value?.Example != null)
-                            || (x.Value?.Examples != null && x.Value?.Examples.Count > 0)
-                            || (x.Value?.Schema?.Items?.Example != null));
+                            || x.Value?.Example != null
+                            || x.Value?.Examples != null && x.Value?.Examples.Count > 0
+                            || x.Value?.Schema?.Items?.Example != null
+                            || x.Value?.Schema?.Extensions?.TryGetValue("x-examples", out _) != false);
 
                         if (foundExample)
                             foreach (KeyValuePair<string, OpenApiMediaType> content in response.Value.Content)
@@ -64,9 +65,11 @@ namespace Jhulis.Core.Rules
                         //Here, we want at least one example at content level
                         bool foundExample = operation.Value?.RequestBody?.Content.Any(x =>
                                 x.Value.Schema?.Example != null
-                            || (x.Value?.Example != null)
-                            || (x.Value?.Examples != null && x.Value.Examples.Count > 0)
-                            || (x.Value?.Schema?.Items?.Example != null)) == true;
+                            || x.Value?.Example != null
+                            || x.Value?.Examples != null && x.Value.Examples.Count > 0
+                            || x.Value?.Schema?.Items?.Example != null
+                            || x.Value?.Schema?.Extensions?.TryGetValue("x-examples", out _) != false
+                            ) == true;
 
                         if (foundExample)
                             foreach (KeyValuePair<string, OpenApiMediaType> content in operation.Value?.RequestBody?.Content)
