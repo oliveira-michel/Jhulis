@@ -89,8 +89,10 @@ namespace Jhulis.Core.Rules
                             Convert.ToString(operation.Key.ToString().ToLowerInvariant()), string.Empty,
                             response.Key)) continue;
                         
-                        if (string.IsNullOrEmpty(response.Value.Description) ||
-                            response.Value.Description?.Length < midDescriptionLength)
+                        //Usually, response description only have the response code and description without punctuation.
+                        //Ex: 200 Ok
+
+                        if (string.IsNullOrEmpty(response.Value.Description))
                         {
                             listResult.Add(
                                 new ResultItem(this, path:path.Key, method: operation.Key.ToString().ToLowerInvariant(), response: response.Key));
