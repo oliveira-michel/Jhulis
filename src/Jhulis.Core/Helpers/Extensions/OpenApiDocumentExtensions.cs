@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Jhulis.Core;
+using Jhulis.Core.Exceptions;
 
 namespace Jhulis.Core.Helpers.Extensions
 {
@@ -147,6 +148,16 @@ namespace Jhulis.Core.Helpers.Extensions
 
                 if (!hittedMaxDepth)
                 {
+                    if (property.Value.Type == "array" 
+                        && property.Value?.Items?.Properties == null
+                        || property.Value?.Items?.Properties.Count == 0
+                        )
+                    {
+                        throw new InvalidOpenApiDocumentException(
+                            $"The property {property.Key} is declared as array, but the array type is not defined.", 
+                            property.Key);
+                    }
+
                     IDictionary<string, OpenApiSchema> propertyList = property.Value.Type == "array"
                         ? property.Value.Items.Properties
                         : property.Value.Properties;
