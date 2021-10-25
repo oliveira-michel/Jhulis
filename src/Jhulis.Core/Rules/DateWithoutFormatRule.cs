@@ -56,7 +56,7 @@ namespace Jhulis.Core.Rules
 
                     foreach (KeyValuePair<string, OpenApiExample> example in parameter.OpenApiParameter.Examples)
                     {
-                        if (parameter.OpenApiParameter.Schema.Type.ToLower() == "string" &&
+                        if (parameter.OpenApiParameter.Schema?.Type?.ToLower() == "string" &&
                             example.Value.Value is OpenApiString apiString &&
                             DateTime.TryParse(apiString.Value, out _) &&
                             parameter.OpenApiParameter.Schema.Format != "date" &&
@@ -72,7 +72,7 @@ namespace Jhulis.Core.Rules
             var propertiesWithLikelyNumericExample =
                 Contract.GetAllBodyProperties(RuleSettings, Cache)
                     .Where(property =>
-                        property.OpenApiSchemaObject.Type.ToLower() == "string" &&
+                        property.OpenApiSchemaObject?.Type?.ToLower() == "string" &&
                         property.Example is OpenApiString apiString &&
                         DateTime.TryParse(apiString.Value, out _) &&
                         property.OpenApiSchemaObject.Format != "date" &&
