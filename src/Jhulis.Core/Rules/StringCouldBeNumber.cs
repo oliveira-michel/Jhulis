@@ -37,7 +37,7 @@ namespace Jhulis.Core.Rules
             var propertiesWithLikelyNumericExample =
                 Contract.GetAllBodyProperties(RuleSettings, Cache)
                     .Where(property =>
-                        property.OpenApiSchemaObject.Type.ToLower() == "string" &&
+                        property.OpenApiSchemaObject?.Type?.ToLower() == "string" &&
                         property.Example is OpenApiString apiString &&
                         !Regex.IsMatch(apiString.Value, RegexLibrary.IpV4) &&//It is not an IP v4
                         !Regex.IsMatch(property.Name, exceptionsRegex) &&
